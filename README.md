@@ -19,8 +19,8 @@ This web app allows users to:
 - add or remove games to the schedule
 - view tournament brackets 
 - and more.
-This application is written in React, coz god forbid I use anything else.
-This app is also 100% just a re-write of my previous game manager that I attempted to write in PHP but got too busy, and I figured I'd just restart this project in React.
+<p>This application is written in React, because god forbid I use anything else.</p>
+<p>This app is also 100% just a re-write of my previous game manager that I attempted to write in PHP but got too busy, and I figured it's easier to just forget the other version exists, and restart this project in React.</p>
 
 ## About React
 
