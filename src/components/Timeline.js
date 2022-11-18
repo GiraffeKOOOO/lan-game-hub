@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import '../App.css';
 import GameListData from './GameList';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 function TimeLine() {
