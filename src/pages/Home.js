@@ -1,4 +1,6 @@
 import '../App.css';
+import { CaretDownFill } from 'react-bootstrap-icons';
+import Timeline from '../components/Timeline';
 
 function Home() {
   return (
@@ -26,11 +28,12 @@ function Home() {
             <div id='main-body' className='col-span-4 border-2 border-rose-400 h-screen'>
                 <div id='main-body-container' className='grid grid-flow-row'>
 
-                  <div id='timeline' className='w-full border-2 border-cyan-400'>
-                    <p>timeline div</p>
+                  <CaretDownFill size={20} className='mx-auto' />
+                  <div id='timeline' className='border-2 border-cyan-400 overflow-hidden'>
+                    <Timeline />
                   </div>
 
-                  <div id='game-panel' className='w-full border-2 border-cyan-400'>
+                  <div id='game-panel' className='w-full border-2 border-cyan-400 mt-[100px]'>
                     <p>game panel div</p>
                   </div>
 
