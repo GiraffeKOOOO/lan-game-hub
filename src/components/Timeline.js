@@ -1,12 +1,12 @@
 import { useContext } from 'react';
+import GameContext from './GameContext';
 import '../App.css';
 import GameListData from './GameList';
-import GameContext from './GameContext';
 import Card from 'react-bootstrap/Card';
 
 function TimeLine() {
   const { setSelectedGame } = useContext(GameContext)
-  
+
   return (
     <>
       <div className='flex gap-[50px]'>

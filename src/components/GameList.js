@@ -1,5 +1,8 @@
 import CSGOImage from '../images/csgo-banner.jpg';
 import LOLImage from '../images/lol-banner.jpg';
+import ApexImage from '../images/apex-banner.jpg';
+import RLImage from '../images/rl-banner.jpg';
+import TF2Image from '../images/tf2-banner.jpg';
 
 const GameListData = [
     {
@@ -7,35 +10,40 @@ const GameListData = [
         "title":"Counter-Strike: Global Offensive",
         "mode":"Gun Game",
         "startsAt":"Friday 19:00",
-        "url":CSGOImage
+        "url":CSGOImage,
+        "players":"20"
     },
     {
         "id":"2",
         "title":"League of Legends",
         "mode":"1 vs 1",
         "startsAt":"Friday 21:00",
-        "url":LOLImage
+        "url":LOLImage,
+        "players":"7"
     },
     {
         "id":"3",
-        "title":"game3",
-        "mode":"game3",
+        "title":"Apex Legends",
+        "mode":"trios",
         "startsAt":"Saturday 14:00",
-        "url":CSGOImage
+        "url":ApexImage,
+        "players":"17"
     },
     {
         "id":"4",
-        "title":"game4",
-        "mode":"game4",
+        "title":"Rocket League",
+        "mode":"2 vs 2",
         "startsAt":"Saturday 14:00",
-        "url":CSGOImage
+        "url":RLImage,
+        "players":"11"
     },
     {
         "id":"5",
-        "title":"game5",
-        "mode":"game5",
+        "title":"Team Fortress 2",
+        "mode":"Payload Race",
         "startsAt":"Saturday 14:00",
-        "url":CSGOImage
+        "url":TF2Image,
+        "players":"18"
     },
 ]
 

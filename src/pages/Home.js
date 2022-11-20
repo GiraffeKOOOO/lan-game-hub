@@ -1,18 +1,25 @@
 import { useContext } from 'react';
 import '../App.css';
 import GameContext from '../components/GameContext';
-import { CaretDownFill } from 'react-bootstrap-icons';
+import { CaretDownFill, ArrowDownCircleFill } from 'react-bootstrap-icons';
 import Timeline from '../components/Timeline';
 import GameInfoPanel from '../components/GameInfoPanel';
 
 function Home() {
-  const { selectedGame } = useContext(GameContext)
-  console.log(selectedGame);
+  const { selectedGame } = useContext(GameContext);
+
+  const addMoreInfoBtn = () => {
+    if(selectedGame !== null){
+        console.log("game selected");
+    }
+  }
+
   return (
     <>
-        <div className='grid grid-cols-5'>
+        <div className='grid grid-cols-5 min-h-screen'>
 
-            <div id='left-panel' className='h-screen bg-sky-800'>
+            {/** Left panel: user, pages etc. */}
+            <div id='left-panel' className='bg-sky-800'>
               <div id='left-body-container' className='grid grid-flow-row'>
 
                   <div id='user-profile' className='w-full border-2 border-cyan-400'>
@@ -30,25 +37,25 @@ function Home() {
               </div>
             </div>
 
-            <div id='main-body' className='col-span-4 border-2 h-screen'>
+            {/** right panel: main body of the page */}
+            <div id='main-body' className='col-span-4 border-2'>
                 <div id='main-body-container' className='grid grid-flow-row'>
 
-                  <CaretDownFill size={20} className='mx-auto' />
-                  <div id='timeline' className='border-2 border-cyan-400 overflow-hidden'>
+                  <CaretDownFill size={20} className='mx-auto my-[10px]' />
+                  <div id='timeline' className='overflow-hidden'>
                     <Timeline/>
                   </div>
 
-                  <div id='game-panel' className='w-full border-2 border-cyan-400 mt-[100px]'>
+                  <div id='game-panel' className='border-t-[2px] w-full my-[40px] pt-[30px]'>
                     <GameInfoPanel/>
                   </div>
 
-                  <div id='game-stats' className='w-full border-2 border-cyan-400'>
-                    <p>game stats div</p>
-                  </div>
-
-                  <div className='w-full border-2 border-cyan-400'>
-                    <p>navigate user to more content</p>
-                  </div>
+                  {selectedGame !== null ? (
+                    <div className='mt-[70px]'>
+                      <p className='text-center m-0 mx-auto'>More information</p>
+                      <ArrowDownCircleFill size={50} className='mx-auto hover:opacity-80'/>
+                    </div>
+                  ) : "" }
 
                 </div>
             </div>
