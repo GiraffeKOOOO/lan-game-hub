@@ -1,8 +1,13 @@
+import { useContext } from 'react';
 import '../App.css';
+import GameContext from '../components/GameContext';
 import { CaretDownFill } from 'react-bootstrap-icons';
 import Timeline from '../components/Timeline';
+import GameInfoPanel from '../components/GameInfoPanel';
 
 function Home() {
+  const { selectedGame } = useContext(GameContext)
+  console.log(selectedGame);
   return (
     <>
         <div className='grid grid-cols-5'>
@@ -25,16 +30,16 @@ function Home() {
               </div>
             </div>
 
-            <div id='main-body' className='col-span-4 border-2 border-rose-400 h-screen'>
+            <div id='main-body' className='col-span-4 border-2 h-screen'>
                 <div id='main-body-container' className='grid grid-flow-row'>
 
                   <CaretDownFill size={20} className='mx-auto' />
                   <div id='timeline' className='border-2 border-cyan-400 overflow-hidden'>
-                    <Timeline />
+                    <Timeline/>
                   </div>
 
                   <div id='game-panel' className='w-full border-2 border-cyan-400 mt-[100px]'>
-                    <p>game panel div</p>
+                    <GameInfoPanel/>
                   </div>
 
                   <div id='game-stats' className='w-full border-2 border-cyan-400'>
@@ -47,6 +52,7 @@ function Home() {
 
                 </div>
             </div>
+
         </div>
     </>
   );
