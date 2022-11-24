@@ -2,11 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import "../App.css";
 import "../TimelineScrollbar.css";
 import GameContext from "../components/GameContext";
-import {
-  ArrowDownCircleFill,
-  Calendar2Week,
-  Clock,
-} from "react-bootstrap-icons";
+import { ArrowDownCircleFill, Calendar2Week, Clock } from "react-bootstrap-icons";
 import Timeline from "../components/Timeline";
 import GameInfoPanel from "../components/GameInfoPanel";
 
@@ -73,10 +69,7 @@ function Home() {
             {selectedGame !== null ? (
               <div className="mt-[40px]">
                 <p className="text-center m-0 mx-auto">More information</p>
-                <ArrowDownCircleFill
-                  size={50}
-                  className="mx-auto hover:opacity-80"
-                />
+                <ArrowDownCircleFill size={50} className="mx-auto hover:opacity-80" />
               </div>
             ) : (
               ""
