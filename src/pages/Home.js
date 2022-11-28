@@ -5,10 +5,12 @@ import GameContext from "../components/GameContext";
 import { ArrowDownCircleFill, Calendar2Week, Clock } from "react-bootstrap-icons";
 import Timeline from "../components/Timeline";
 import GameInfoPanel from "../components/GameInfoPanel";
+import GameInfoTable from "../components/GameInfoTable";
 
 function Home() {
   const { selectedGame } = useContext(GameContext);
   const [dateState, setDateState] = useState(new Date());
+  const [moreInfoHidden, setMoreInfoHidden] = useState(true);
 
   useEffect(() => {
     setInterval(() => {
@@ -18,7 +20,7 @@ function Home() {
 
   return (
     <>
-      <div className="grid grid-cols-5 min-h-screen">
+      <div className="grid grid-cols-7 min-h-screen">
         {/** Left panel: user, pages etc. */}
         <div id="left-panel" className="bg-sky-800">
           <div id="left-body-container" className="grid grid-flow-row">
@@ -37,7 +39,7 @@ function Home() {
         </div>
 
         {/** right panel: main body of the page */}
-        <div id="main-body" className="col-span-4">
+        <div id="main-body" className="col-span-6">
           <div id="main-body-container" className="grid grid-flow-row">
             <span className="flex flex-row gap-3 mx-auto mt-[10px]">
               <Calendar2Week size={30} />
@@ -67,9 +69,17 @@ function Home() {
             </div>
 
             {selectedGame !== null ? (
-              <div className="mt-[40px]">
+              <div className="mt-[40px] mb-[40px]">
                 <p className="text-center m-0 mx-auto">More information</p>
-                <ArrowDownCircleFill size={50} className="mx-auto hover:opacity-80" />
+                <ArrowDownCircleFill size={50} className="mx-auto hover:opacity-80" onClick={() => setMoreInfoHidden(!moreInfoHidden)} />
+              </div>
+            ) : (
+              ""
+            )}
+
+            {moreInfoHidden != true ? (
+              <div className="mt-[40px] mb-[40px]">
+                <GameInfoTable />
               </div>
             ) : (
               ""
