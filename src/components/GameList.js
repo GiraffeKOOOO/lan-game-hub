@@ -13,52 +13,70 @@ const GameListData = [
     url: CSGOImage,
     players: [
       {
-        playerNumber: 1,
+        playerId: 1,
         playerName: "Amazing Derek",
       },
       {
-        playerNumber: 2,
+        playerId: 2,
         playerName: "Amazing Brian",
       },
       {
-        playerNumber: 3,
+        playerId: 3,
         playerName: "Amazing John",
       },
       {
-        playerNumber: 4,
+        playerId: 4,
         playerName: "Amazing Antony",
       },
       {
-        playerNumber: 5,
+        playerId: 5,
         playerName: "Amazing Tom",
       },
       {
-        playerNumber: 6,
+        playerId: 6,
         playerName: "Amazing Ron",
       },
       {
-        playerNumber: 7,
+        playerId: 7,
         playerName: "Amazing Stom",
       },
       {
-        playerNumber: 8,
+        playerId: 8,
         playerName: "Amazing Gamer",
       },
       {
-        playerNumber: 9,
+        playerId: 9,
         playerName: "Amazing Mahom",
       },
       {
-        playerNumber: 10,
+        playerId: 10,
         playerName: "Amazing Brian",
       },
       {
-        playerNumber: 11,
+        playerId: 11,
         playerName: "Amazing Ruan",
       },
       {
-        playerNumber: 12,
+        playerId: 12,
         playerName: "Amazing IKAjsdfopias",
+      },
+    ],
+    teams: [
+      {
+        teamId: 1,
+        teamName: "Amazing Team",
+      },
+      {
+        teamId: 2,
+        teamName: "Team Something",
+      },
+      {
+        teamId: 3,
+        teamName: "Amazing Shooters",
+      },
+      {
+        teamId: 4,
+        teamName: "I hold the gun with my feet",
       },
     ],
   },
@@ -70,16 +88,26 @@ const GameListData = [
     url: LOLImage,
     players: [
       {
-        playerNumber: 1,
+        playerId: 1,
         playerName: "Amazing Derek",
       },
       {
-        playerNumber: 2,
+        playerId: 2,
         playerName: "Amazing Brian",
       },
       {
-        playerNumber: 3,
+        playerId: 3,
         playerName: "Amazing John",
+      },
+    ],
+    teams: [
+      {
+        teamId: 1,
+        teamName: "Amazing Team",
+      },
+      {
+        teamId: 2,
+        teamName: "Team Something",
       },
     ],
   },
@@ -91,36 +119,54 @@ const GameListData = [
     url: ApexImage,
     players: [
       {
-        playerNumber: 1,
+        playerId: 1,
         playerName: "Amazing Derek",
       },
       {
-        playerNumber: 2,
+        playerId: 2,
         playerName: "Amazing Brian",
       },
       {
-        playerNumber: 3,
+        playerId: 3,
         playerName: "Amazing John",
       },
       {
-        playerNumber: 4,
+        playerId: 4,
         playerName: "Amazing Antony",
       },
       {
-        playerNumber: 5,
+        playerId: 5,
         playerName: "Amazing Tom",
       },
       {
-        playerNumber: 6,
+        playerId: 6,
         playerName: "Amazing Ron",
       },
       {
-        playerNumber: 7,
+        playerId: 7,
         playerName: "Amazing Bob",
       },
       {
-        playerNumber: 8,
+        playerId: 8,
         playerName: "Amazing Robson",
+      },
+    ],
+    teams: [
+      {
+        teamId: 1,
+        teamName: "Amazing Team",
+      },
+      {
+        teamId: 2,
+        teamName: "Team Something",
+      },
+      {
+        teamId: 3,
+        teamName: "Amazing Shooters",
+      },
+      {
+        teamId: 4,
+        teamName: "I hold the gun with my feet",
       },
     ],
   },
@@ -132,20 +178,38 @@ const GameListData = [
     url: RLImage,
     players: [
       {
-        playerNumber: 1,
+        playerId: 1,
         playerName: "Amazing Derek",
       },
       {
-        playerNumber: 2,
+        playerId: 2,
         playerName: "Amazing Brian",
       },
       {
-        playerNumber: 3,
+        playerId: 3,
         playerName: "Amazing John",
       },
       {
-        playerNumber: 4,
+        playerId: 4,
         playerName: "Amazing Antony",
+      },
+    ],
+    teams: [
+      {
+        teamId: 1,
+        teamName: "Amazing Team",
+      },
+      {
+        teamId: 2,
+        teamName: "Team Something",
+      },
+      {
+        teamId: 3,
+        teamName: "Amazing Shooters",
+      },
+      {
+        teamId: 4,
+        teamName: "I hold the gun with my feet",
       },
     ],
   },
@@ -157,28 +221,42 @@ const GameListData = [
     url: TF2Image,
     players: [
       {
-        playerNumber: 1,
+        playerId: 1,
         playerName: "Amazing Derek",
       },
       {
-        playerNumber: 2,
+        playerId: 2,
         playerName: "Amazing Brian",
       },
       {
-        playerNumber: 3,
+        playerId: 3,
         playerName: "Amazing John",
       },
       {
-        playerNumber: 4,
+        playerId: 4,
         playerName: "Amazing Antony",
       },
       {
-        playerNumber: 5,
+        playerId: 5,
         playerName: "Amazing Tom",
       },
       {
-        playerNumber: 6,
+        playerId: 6,
         playerName: "Amazing Sam",
+      },
+    ],
+    teams: [
+      {
+        teamId: 1,
+        teamName: "Amazing Team",
+      },
+      {
+        teamId: 2,
+        teamName: "Team Something",
+      },
+      {
+        teamId: 3,
+        teamName: "Amazing Shooters",
       },
     ],
   },
