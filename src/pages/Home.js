@@ -76,7 +76,7 @@ function Home() {
               ""
             )}
 
-            {moreInfoHidden != true ? (
+            {moreInfoHidden !== true ? (
               <div className="mt-[40px] mb-[40px]">
                 <PlayerTeamList />
               </div>
