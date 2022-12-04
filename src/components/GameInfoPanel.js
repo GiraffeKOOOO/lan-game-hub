@@ -6,8 +6,18 @@ import { PersonFill, ClockFill, Controller, PlusCircleFill, XCircleFill } from "
 import Button from "react-bootstrap/Button";
 
 function TimeLine() {
-  const { selectedGame } = useContext(GameContext);
+  const { selectedGame, handleMoreInfoClick } = useContext(GameContext);
   const [isUserPlaying, setIsUserPlaying] = useState(false);
+
+  const handleUserJoining = () => {
+    setIsUserPlaying(true);
+    handleMoreInfoClick();
+  };
+
+  const handleUserLeaving = () => {
+    setIsUserPlaying(false);
+    handleMoreInfoClick();
+  };
 
   if (selectedGame === null) {
     return (
@@ -53,14 +63,14 @@ function TimeLine() {
                 )}
               </div>
               {isUserPlaying ? (
-                <Button className="w-40 h-10 mt-[27px] mx-auto" variant="danger" onClick={() => setIsUserPlaying(!isUserPlaying)}>
+                <Button className="w-40 h-10 mt-[27px] mx-auto" variant="danger" onClick={() => handleUserLeaving()}>
                   <span className="flex">
                     <p className="ml-10px mx-auto">Leave game</p>
                     <XCircleFill size={20} className="mt-[4px]" />
                   </span>
                 </Button>
               ) : (
-                <Button className="w-40 h-10 mt-[27px] mx-auto" variant="primary" onClick={() => setIsUserPlaying(!isUserPlaying)}>
+                <Button className="w-40 h-10 mt-[27px] mx-auto" variant="primary" onClick={() => handleUserJoining()}>
                   <span className="flex">
                     <p className="ml-10px mx-auto">Join game</p>
                     <PlusCircleFill size={20} className="mt-[4px]" />

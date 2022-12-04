@@ -41,7 +41,7 @@ function Home() {
             <div id="game-panel" className=" w-full ">
               <GameInfoPanel />
             </div>
-            {selectedGame !== null && playerTeamButtonHidden !== true ? <PlayerTeamButton /> : <div className="h-[80px]" />}
+            {selectedGame !== null && playerTeamButtonHidden !== true ? <PlayerTeamButton /> : <div className="h-[40px]" />}
             {moreInfoHidden !== true ? (
               <div className="mt-[40px] mb-[40px]">
                 <PlayerTeamList />

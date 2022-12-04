@@ -6,10 +6,11 @@ import Card from "react-bootstrap/Card";
 import ScrollContainer from "react-indiana-drag-scroll";
 
 function TimeLine() {
-  const { setSelectedGame, setMoreInfoHidden } = useContext(GameContext);
+  const { setSelectedGame, setMoreInfoHidden, setPlayerTeamButtonHidden } = useContext(GameContext);
 
   const handleCardSelection = (game) => {
     setSelectedGame(game);
+    setPlayerTeamButtonHidden(false);
     setMoreInfoHidden(true);
   };
 
