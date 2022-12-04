@@ -6,9 +6,13 @@ import Card from "react-bootstrap/Card";
 function PlayerTeamList() {
   const { selectedGame } = useContext(GameContext);
 
-  const halfwayPoint = Math.ceil(selectedGame.players.length / 2);
-  const playerColumn1 = selectedGame.players.slice().splice(0, halfwayPoint);
-  const playerColumn2 = selectedGame.players.slice().splice(halfwayPoint);
+  const playerHalfwayPoint = Math.ceil(selectedGame.players.length / 2);
+  const playerColumn1 = selectedGame.players.slice().splice(0, playerHalfwayPoint);
+  const playerColumn2 = selectedGame.players.slice().splice(playerHalfwayPoint);
+
+  const teamHalfwayPoint = Math.ceil(selectedGame.teams.length / 2);
+  const teamColumn1 = selectedGame.teams.slice().splice(0, teamHalfwayPoint);
+  const teamCoulmn2 = selectedGame.teams.slice().splice(teamHalfwayPoint);
 
   return (
     <>
@@ -38,8 +42,26 @@ function PlayerTeamList() {
           </div>
 
           {/** Right side of the table for the team list */}
-          <div id="game-table-right" className="mx-auto w-full text-center">
-            <p className="text-[22px] underline underline-offset-6">Team list</p>
+          <div id="game-table-right" className="mx-auto w-full text-center grid grid-cols-2 gap-4">
+            <p className="text-[22px] underline underline-offset-6 col-span-2 mb-0">Team list</p>
+            <div className="ml-[10px]">
+              {teamColumn1.map((team, iterator) => {
+                return (
+                  <p key={iterator} className="border-2 border-blue-200 rounded-[7px]">
+                    {team.teamName}
+                  </p>
+                );
+              })}
+            </div>
+            <div className="mr-[10px]">
+              {teamCoulmn2.map((team, iterator) => {
+                return (
+                  <p key={iterator} className="border-2 border-blue-200 rounded-[7px]">
+                    {team.teamName}
+                  </p>
+                );
+              })}
+            </div>
           </div>
         </Card.Body>
       </Card>
