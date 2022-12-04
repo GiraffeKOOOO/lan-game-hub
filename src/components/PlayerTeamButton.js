@@ -7,7 +7,7 @@ function PlayerTeamButton() {
   const { handleMoreInfoClick } = useContext(GameContext);
 
   return (
-    <div className="mt-[40px] mb-[40px]">
+    <div className="mt-[20px] mb-[40px]">
       <p className="text-center m-0 mx-auto">More information</p>
       <ArrowDownCircleFill size={50} className="mx-auto hover:opacity-80" onClick={() => handleMoreInfoClick()} />
     </div>

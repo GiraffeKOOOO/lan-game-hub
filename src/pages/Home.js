@@ -9,7 +9,7 @@ import PlayerTeamButton from "../components/PlayerTeamButton";
 import PlayerTeamList from "../components/PlayerTeamList";
 
 function Home() {
-  const { selectedGame, moreInfoHidden, teamPlayerTableRef } = useContext(GameContext);
+  const { selectedGame, moreInfoHidden, playerTeamButtonHidden } = useContext(GameContext);
 
   return (
     <>
@@ -41,10 +41,10 @@ function Home() {
             <div id="game-panel" className=" w-full ">
               <GameInfoPanel />
             </div>
-            {selectedGame !== null ? <PlayerTeamButton /> : ""}
+            {selectedGame !== null && playerTeamButtonHidden !== true ? <PlayerTeamButton /> : <div className="h-[80px]" />}
             {moreInfoHidden !== true ? (
               <div className="mt-[40px] mb-[40px]">
-                <PlayerTeamList ref={teamPlayerTableRef} />
+                <PlayerTeamList />
               </div>
             ) : (
               ""

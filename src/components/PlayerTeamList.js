@@ -4,7 +4,7 @@ import "../App.css";
 import Card from "react-bootstrap/Card";
 
 function PlayerTeamList() {
-  const { selectedGame } = useContext(GameContext);
+  const { selectedGame, teamPlayerTableRef } = useContext(GameContext);
 
   const playerHalfwayPoint = Math.ceil(selectedGame.players.length / 2);
   const playerColumn1 = selectedGame.players.slice().splice(0, playerHalfwayPoint);
@@ -16,7 +16,7 @@ function PlayerTeamList() {
 
   return (
     <>
-      <Card className="mx-auto w-[1000px]">
+      <Card className="mx-auto w-[1000px]" ref={teamPlayerTableRef}>
         <Card.Body className="grid grid-cols-2">
           {/** Left side of the table for player list */}
           <div id="game-table-left" className="mx-auto w-full border-r-2 text-center grid grid-cols-2 gap-4">
