@@ -27,19 +27,14 @@ export function GameProvider({ children }) {
     switch (selectedGameState) {
       case "finished":
         return "Finished";
-        break;
       case "inProgress":
         return "In Progress";
-        break;
       case "upcoming":
         return "Upcoming";
-        break;
       case "inQueue":
         return "In Queue";
-        break;
       default:
         return "Amazing";
-        break;
     }
   };
 
@@ -47,19 +42,14 @@ export function GameProvider({ children }) {
     switch (selectedGameState) {
       case "finished":
         return "bg-slate-200";
-        break;
       case "inProgress":
         return "bg-green-200";
-        break;
       case "upcoming":
         return "bg-orange-200";
-        break;
       case "inQueue":
         return "bg-blue-200";
-        break;
       default:
         return "Amazing";
-        break;
     }
   };
 

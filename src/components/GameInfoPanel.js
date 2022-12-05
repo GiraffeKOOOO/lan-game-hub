@@ -55,7 +55,7 @@ function TimeLine() {
             </div>
             <div className="grid grid-cols-2 border-y-2 my-[5px]">
               <p className="col-span-1 mx-auto my-[10px] bg-slate-200 rounded-lg py-[10px] px-[40px]">Game status:</p>
-              <p className={"col-span-1 mx-auto my-[10px] rounded-lg py-[10px] px-[40px] justify-start" + " " + gameStateColor(selectedGame.state)}>{gameStateText(selectedGame.state)}</p>
+              <p className={`col-span-1 mx-auto my-[10px] rounded-lg py-[10px] px-[40px] justify-start ` + " " + gameStateColor(selectedGame.state)}>{gameStateText(selectedGame.state)}</p>
             </div>
             <div className="grid grid-cols-2">
               <div>
