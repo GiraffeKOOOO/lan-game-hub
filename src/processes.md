@@ -1,7 +1,12 @@
 game sate:
-waiting (people joining) -> started (players are locked in for the game) -> finished
+upcoming | inQueue -> inProgress -> finished
+
+- finished
+- inProgress
+- upcoming
+- inQueue
 
 player state:
-
+in lobby (no team) -> in team -> playing -> finished
 
 team state:

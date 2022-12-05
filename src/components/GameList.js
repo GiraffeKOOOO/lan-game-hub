@@ -7,6 +7,7 @@ import TF2Image from "../images/tf2-banner.jpg";
 const GameListData = [
   {
     id: "1",
+    state: "finished",
     title: "Counter-Strike: Global Offensive",
     mode: "Gun Game",
     startsAt: "Friday 19:00",
@@ -82,6 +83,7 @@ const GameListData = [
   },
   {
     id: "2",
+    state: "inProgress",
     title: "League of Legends",
     mode: "1 vs 1",
     startsAt: "Friday 21:00",
@@ -114,6 +116,7 @@ const GameListData = [
   {
     id: "3",
     title: "Apex Legends",
+    state: "upcoming",
     mode: "trios",
     startsAt: "Saturday 14:00",
     url: ApexImage,
@@ -172,6 +175,7 @@ const GameListData = [
   },
   {
     id: "4",
+    state: "inQueue",
     title: "Rocket League",
     mode: "2 vs 2",
     startsAt: "Saturday 14:00",
@@ -215,6 +219,7 @@ const GameListData = [
   },
   {
     id: "5",
+    state: "inQueue",
     title: "Team Fortress 2",
     mode: "Payload Race",
     startsAt: "Saturday 14:00",
