@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import GameContext from "./GameContext";
 import "../App.css";
-import GameListData from "./GameList";
+import GameListData from "../data/GameList";
 import Card from "react-bootstrap/Card";
 import ScrollContainer from "react-indiana-drag-scroll";
 

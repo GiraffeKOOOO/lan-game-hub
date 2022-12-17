@@ -116,7 +116,7 @@ const GameListData = [
   {
     id: "3",
     title: "Apex Legends",
-    state: "upcoming",
+    state: "upNext",
     mode: "trios",
     startsAt: "Saturday 14:00",
     url: ApexImage,

@@ -29,8 +29,8 @@ export function GameProvider({ children }) {
         return "Finished";
       case "inProgress":
         return "In Progress";
-      case "upcoming":
-        return "Upcoming";
+      case "upNext":
+        return "Up Next";
       case "inQueue":
         return "In Queue";
       default:
@@ -44,7 +44,7 @@ export function GameProvider({ children }) {
         return "bg-slate-200";
       case "inProgress":
         return "bg-green-200";
-      case "upcoming":
+      case "upNext":
         return "bg-orange-200";
       case "inQueue":
         return "bg-blue-200";
