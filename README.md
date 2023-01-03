@@ -31,4 +31,5 @@ React is a free and open-source front-end JavaScript library for building user i
     <li>React Router</li>
     <li>React Bootstrap</li>
     <li>Tailwind</li>
+    <li>React Hook Forms</li>
 </ul>
