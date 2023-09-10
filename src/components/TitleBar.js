@@ -46,7 +46,7 @@ function TitleBar() {
       <div className="col-span-1 justify-self-end self-center">
         <Switch
           onChange={handleDarkModeSwitch}
-          checked={darkMode ? false : true}
+          checked={darkMode ? true : false}
           onColor="#4ca667"
           onHandleColor="#ffffff"
           handleDiameter={18}

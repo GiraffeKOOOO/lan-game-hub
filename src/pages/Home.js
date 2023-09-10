@@ -32,7 +32,7 @@ function Home() {
         </div>
 
         {/** right panel: main body of the page */}
-        <div id="main-body" className="col-span-6" style={darkMode ? { backgroundColor: "#FFFFFF" } : { backgroundColor: "#000000" }}>
+        <div id="main-body" className="col-span-6" style={darkMode ? { backgroundColor: "#000000" } : { backgroundColor: "#FFFFFF" }}>
           <div id="main-body-container" className="grid grid-flow-row">
             <TitleBar />
             <div id="timeline" className="overflow-hidden border-y-2">
