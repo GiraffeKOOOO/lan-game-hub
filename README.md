@@ -26,9 +26,12 @@ This web app allows users to:
 
 React is a free and open-source front-end JavaScript library for building user interfaces based on UI components. It is maintained by Meta and a community of individual developers and companies.
 
-## Key libraries used in this project
+## Key libraries and Frameworks used in this project
 <ul>
+    <li>React</li>
+    <li>Vite</li>
     <li>React Router</li>
+    <li>Material UI</li>
     <li>React Bootstrap</li>
     <li>Tailwind</li>
     <li>React Hook Forms</li>
