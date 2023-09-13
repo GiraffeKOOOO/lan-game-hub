@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import GameContext from "../components/GameContext";
 import "../App.css";
 import { Calendar2Week, Clock } from "react-bootstrap-icons";
+import Switch from "react-switch";
 
 function TitleBar() {
+  const { darkMode, toggleDarkMode } = useContext(GameContext);
   const [dateState, setDateState] = useState(new Date());
 
   useEffect(() => {
@@ -10,6 +13,10 @@ function TitleBar() {
       setDateState(new Date());
     }, 60000);
   }, []);
+
+  const handleDarkModeSwitch = () => {
+    toggleDarkMode();
+  };
 
   return (
     <div className="grid grid-cols-3">
@@ -36,7 +43,23 @@ function TitleBar() {
           </p>
         </span>
       </div>
-      <div className="col-span-1"></div>
+      <div className="col-span-1 justify-self-end self-center">
+        <Switch
+          onChange={handleDarkModeSwitch}
+          checked={darkMode ? true : false}
+          onColor="#4ca667"
+          onHandleColor="#ffffff"
+          handleDiameter={18}
+          uncheckedIcon={false}
+          checkedIcon={false}
+          boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+          activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+          height={12}
+          width={35}
+          className="react-switch mr-[20px]"
+          id="material-switch"
+        />
+      </div>
     </div>
   );
 }

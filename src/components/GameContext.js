@@ -7,6 +7,7 @@ export function GameProvider({ children }) {
   const [playerTeamButtonHidden, setPlayerTeamButtonHidden] = useState(false);
   const [moreInfoHidden, setMoreInfoHidden] = useState(true);
   const teamPlayerTableRef = useRef(null);
+  const [darkMode, setDarkMode] = useState(false);
 
   const scrollToSection = (elementRef) => {
     window.scrollTo({
@@ -53,6 +54,10 @@ export function GameProvider({ children }) {
     }
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -66,6 +71,8 @@ export function GameProvider({ children }) {
         handleMoreInfoClick,
         gameStateText,
         gameStateColor,
+        darkMode,
+        toggleDarkMode,
       }}
     >
       {children}
