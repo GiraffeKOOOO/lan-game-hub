@@ -4,6 +4,7 @@
 <h2 align="center">LAN game hub</h2>
 <p align="center">A simple web app to help manage game organisation at a LAN party.</p>
 
+<img src="https://i.imgur.com/I7wETLw.png" alt="lan-game-hub">
 <p align="center"><a href="https://reactjs.org/" target="_blank"><img src="https://codegeekz.com/wp-content/uploads/reactjs.png" width="400" alt="React Logo"></a></p>
 
 <p align="center">
