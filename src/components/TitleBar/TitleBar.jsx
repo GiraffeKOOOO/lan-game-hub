@@ -24,22 +24,23 @@ function TitleBar() {
   };
 
   return (
-    <div className="grid grid-cols-3">
+    <div className="grid grid-cols-3 mt-[10px]">
       <div className="col-span-1">
-        <p className="text-[30px] text-underline my-auto ml-[15px]" style={darkMode ? { color: FONT_COLOUR.DARK} : { color: FONT_COLOUR.LIGHT }}>LAN Game Hub</p>
+        <p className="text-[30px] text-underline my-auto ml-[15px]" style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }}>LAN Game Hub</p>
       </div>
-      <div className="col-span-1 mx-auto">
+      <div className="col-span-1 mx-auto" style={{ border: `1px solid`, borderRadius: '0.5rem', padding: '0 1rem 0.5rem 1rem', borderColor: `${darkMode ? FONT_COLOUR.DARK : FONT_COLOUR.LIGHT}` }}>
         <span className="flex flex-row gap-3 mx-auto mt-[10px]">
-          <Calendar2Week size={30} style={darkMode ? { color: FONT_COLOUR.DARK} : { color: FONT_COLOUR.LIGHT }}/>
-          <p className="text-[20px]" style={darkMode ? { color: FONT_COLOUR.DARK} : { color: FONT_COLOUR.LIGHT }}>
+          <Calendar2Week size={30} style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }} />
+          <p className="text-[20px]" style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }}>
             {dateState.toLocaleDateString("en-GB", {
               weekday: "long",
               day: "numeric",
               month: "short",
             })}
-          </p>{" "}
-          <Clock size={30} style={darkMode ? { color: FONT_COLOUR.DARK} : { color: FONT_COLOUR.LIGHT }}/>
-          <p className="text-[20px]" style={darkMode ? { color: FONT_COLOUR.DARK} : { color: FONT_COLOUR.LIGHT }}>
+          </p>
+          <div style={{width: '1px', height: 'auto', borderLeft: '1px solid', borderColor: `${darkMode ? FONT_COLOUR.DARK : FONT_COLOUR.LIGHT}`}}/>
+          <Clock size={30} style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }} />
+          <p className="text-[20px]" style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }}>
             {dateState.toLocaleString("en-GB", {
               hour: "numeric",
               minute: "numeric",
