@@ -8,7 +8,8 @@ import Home from './pages/Home.jsx';
 import Admin from './pages/Admin.jsx';
 import User from './pages/User.jsx';
 // styles
-import './index.css';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const router = createBrowserRouter([
   {

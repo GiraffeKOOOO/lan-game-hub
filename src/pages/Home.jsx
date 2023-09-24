@@ -7,6 +7,7 @@ import ThemeContext from '../components/ThemeContext/ThemeContext';
 import TitleBar from '../components/TitleBar/TitleBar';
 import SideBar from '../components/SideBar/SideBar';
 import LoginModal from '../components/LoginModal/LoginModal';
+import GameTimelinePanel from '../components/GameTimeline/GameTimelinePanel';
 // import Timeline from "../components/Timeline";
 // import GameInfoPanel from "../components/GameInfoPanel";
 // import PlayerTeamButton from "../components/PlayerTeamButton";
@@ -38,9 +39,9 @@ const Home = () => {
           <div id="main-body-container" className="grid grid-flow-row">
             <TitleBar />
 
-            {/* <div id="timeline" className="overflow-hidden border-y-2">
-              <Timeline />
-            </div> */}
+            <div id="timeline" className="overflow-hidden border-y-2">
+              <GameTimelinePanel />
+            </div>
 
             {/*
             <div id="game-panel" className=" w-full ">
