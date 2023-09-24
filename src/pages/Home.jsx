@@ -26,14 +26,16 @@ const Home = () => {
             <div id="user-profile" className="w-full border-2 border-cyan-400">
               <p>User profile div</p>
             </div>
-
+            
+            {/* 
             <div className="w-full border-2 border-cyan-400">
               <p>game 1 div</p>
             </div>
 
             <div className="w-full border-2 border-cyan-400">
               <p>game 2 div</p>
-            </div>
+            </div> */}
+
           </div>
         </div>
 
@@ -41,9 +43,12 @@ const Home = () => {
         <div id="main-body" className="col-span-6" style={darkMode ? { backgroundColor: BACKGROUND.DARK} : { backgroundColor: BACKGROUND.LIGHT }}>
           <div id="main-body-container" className="grid grid-flow-row">
             <TitleBar />
+
             {/* <div id="timeline" className="overflow-hidden border-y-2">
               <Timeline />
-            </div>
+            </div> */}
+
+            {/*
             <div id="game-panel" className=" w-full ">
               <GameInfoPanel />
             </div>
@@ -55,6 +60,7 @@ const Home = () => {
             ) : (
               ""
             )} */}
+
           </div>
         </div>
       </div>

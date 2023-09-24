@@ -1,6 +1,6 @@
 // libraries
 import { useState, useEffect, useContext } from "react";
-import { Calendar2Week, Clock } from "react-bootstrap-icons";
+import { Calendar2Week, Clock, BrightnessHighFill, MoonFill } from "react-bootstrap-icons";
 import Switch from "react-switch";
 // context
 // import GameContext from "../components/GameContext";
@@ -24,7 +24,7 @@ function TitleBar() {
   };
 
   return (
-    <div className="grid grid-cols-3 mt-[10px]">
+    <div className="grid grid-cols-3 my-[10px]">
       <div className="col-span-1">
         <p className="text-[30px] text-underline my-auto ml-[15px]" style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }}>LAN Game Hub</p>
       </div>
@@ -49,7 +49,8 @@ function TitleBar() {
           </p>
         </span>
       </div>
-      <div className="col-span-1 justify-self-end self-center">
+      <div className="col-span-1 justify-self-end self-center my-auto">
+        {darkMode ? <MoonFill size={25} style={{color: FONT_COLOUR.DARK}} className="ml-[11px]"/> : <BrightnessHighFill size={25} className="ml-[8px]"/> }
         <Switch
           onChange={handleDarkModeSwitch}
           checked={darkMode ? true : false}
@@ -62,7 +63,7 @@ function TitleBar() {
           activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
           height={12}
           width={35}
-          className="react-switch mr-[20px]"
+          className="react-switch mr-[20px] mt-[5px]"
           id="material-switch"
         />
       </div>
