@@ -1,11 +1,12 @@
 // libraries
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 // context
 import ThemeContext from '../components/ThemeContext/ThemeContext';
 // import GameContext from "../components/GameContext";
 // files
 import TitleBar from '../components/TitleBar/TitleBar';
+import SideBar from '../components/SideBar/SideBar';
+import LoginModal from '../components/LoginModal/LoginModal';
 // import Timeline from "../components/Timeline";
 // import GameInfoPanel from "../components/GameInfoPanel";
 // import PlayerTeamButton from "../components/PlayerTeamButton";
@@ -14,35 +15,16 @@ import TitleBar from '../components/TitleBar/TitleBar';
 // import "../TimelineScrollbar.css";
 import '../index.css';
 import { BACKGROUND } from '../components/Theme/Colours';
-import { PersonFill } from 'react-bootstrap-icons';
 
 const Home = () => {
   const { darkMode } = useContext(ThemeContext);
-  const navigate = useNavigate();
 
   return (
     <>
       <div className="grid grid-cols-7 min-h-screen">
         {/** Left panel: user, pages etc. */}
         <div id="left-panel" className="bg-sky-800">
-          <div id="left-body-container" className="grid grid-flow-row">
-            <div id="user-profile" className="w-full border-2 border-cyan-400 mt-[10px]">
-              <PersonFill
-                size={30}
-                className="mx-auto h-[75px] w-[75px] p-[5px] rounded-full bg-slate-100 hover:opacity-90 hover:outline outline-green-500"
-                onClick={() => navigate('/user')}
-              />
-            </div>
-
-            {/* 
-            <div className="w-full border-2 border-cyan-400">
-              <p>game 1 div</p>
-            </div>
-
-            <div className="w-full border-2 border-cyan-400">
-              <p>game 2 div</p>
-            </div> */}
-          </div>
+          <SideBar />
         </div>
 
         {/** right panel: main body of the page */}
@@ -72,6 +54,8 @@ const Home = () => {
             ) : (
               ""
             )} */}
+
+            <LoginModal />
           </div>
         </div>
       </div>
