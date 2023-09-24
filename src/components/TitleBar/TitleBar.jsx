@@ -1,13 +1,13 @@
 // libraries
-import { useState, useEffect, useContext } from "react";
-import { Calendar2Week, Clock, BrightnessHighFill, MoonFill } from "react-bootstrap-icons";
-import Switch from "react-switch";
+import { useState, useEffect, useContext } from 'react';
+import { Calendar2Week, Clock, BrightnessHighFill, MoonFill } from 'react-bootstrap-icons';
+import Switch from 'react-switch';
 // context
 // import GameContext from "../components/GameContext";
-import ThemeContext from "../ThemeContext/ThemeContext";
+import ThemeContext from '../ThemeContext/ThemeContext';
 // files
 // styles
-import { FONT_COLOUR } from '../Theme/Colours'
+import { FONT_COLOUR } from '../Theme/Colours';
 
 function TitleBar() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -26,31 +26,67 @@ function TitleBar() {
   return (
     <div className="grid grid-cols-3 my-[10px]">
       <div className="col-span-1">
-        <p className="text-[30px] text-underline my-auto ml-[15px]" style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }}>LAN Game Hub</p>
+        <p
+          className="text-[30px] text-underline my-auto ml-[15px]"
+          style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }}
+        >
+          LAN Game Hub
+        </p>
       </div>
-      <div className="col-span-1 mx-auto" style={{ border: `1px solid`, borderRadius: '0.5rem', padding: '0 1rem 0.5rem 1rem', borderColor: `${darkMode ? FONT_COLOUR.DARK : FONT_COLOUR.LIGHT}` }}>
+      <div
+        className="col-span-1 mx-auto"
+        style={{
+          border: `1px solid`,
+          borderRadius: '0.5rem',
+          padding: '0 1rem 0.5rem 1rem',
+          borderColor: `${darkMode ? FONT_COLOUR.DARK : FONT_COLOUR.LIGHT}`,
+        }}
+      >
         <span className="flex flex-row gap-3 mx-auto mt-[10px]">
-          <Calendar2Week size={30} style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }} />
-          <p className="text-[20px]" style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }}>
-            {dateState.toLocaleDateString("en-GB", {
-              weekday: "long",
-              day: "numeric",
-              month: "short",
+          <Calendar2Week
+            size={30}
+            style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }}
+          />
+          <p
+            className="text-[20px]"
+            style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }}
+          >
+            {dateState.toLocaleDateString('en-GB', {
+              weekday: 'long',
+              day: 'numeric',
+              month: 'short',
             })}
           </p>
-          <div style={{width: '1px', height: 'auto', borderLeft: '1px solid', borderColor: `${darkMode ? FONT_COLOUR.DARK : FONT_COLOUR.LIGHT}`}}/>
-          <Clock size={30} style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }} />
-          <p className="text-[20px]" style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }}>
-            {dateState.toLocaleString("en-GB", {
-              hour: "numeric",
-              minute: "numeric",
+          <div
+            style={{
+              width: '1px',
+              height: 'auto',
+              borderLeft: '1px solid',
+              borderColor: `${darkMode ? FONT_COLOUR.DARK : FONT_COLOUR.LIGHT}`,
+            }}
+          />
+          <Clock
+            size={30}
+            style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }}
+          />
+          <p
+            className="text-[20px]"
+            style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }}
+          >
+            {dateState.toLocaleString('en-GB', {
+              hour: 'numeric',
+              minute: 'numeric',
               hour12: false,
             })}
           </p>
         </span>
       </div>
       <div className="col-span-1 justify-self-end self-center my-auto">
-        {darkMode ? <MoonFill size={25} style={{color: FONT_COLOUR.DARK}} className="ml-[11px]"/> : <BrightnessHighFill size={25} className="ml-[8px]"/> }
+        {darkMode ? (
+          <MoonFill size={25} style={{ color: FONT_COLOUR.DARK }} className="ml-[11px]" />
+        ) : (
+          <BrightnessHighFill size={25} className="ml-[8px]" />
+        )}
         <Switch
           onChange={handleDarkModeSwitch}
           checked={darkMode ? true : false}
