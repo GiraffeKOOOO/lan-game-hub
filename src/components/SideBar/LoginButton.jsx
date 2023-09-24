@@ -1,15 +1,19 @@
 // libraries
 import { Button } from '@mui/material';
 import { BoxArrowInRight } from 'react-bootstrap-icons';
+import { useRecoilState } from 'recoil';
+// files
+import loginModalState from '../LoginModal/LoginModalState';
 // styles
 import { FONT_COLOUR } from '../Theme/Colours';
 
-const loginFunction = () => {
-  // TODO : open the login modal here
-  console.log(`open login modal here`);
+const openLoginModal = (setModalOpen) => {
+  setModalOpen(true);
 };
 
 const LoginButton = () => {
+  const [, setModalOpen] = useRecoilState(loginModalState);
+
   return (
     <Button
       variant="contained"
@@ -24,7 +28,7 @@ const LoginButton = () => {
         height: 45,
       }}
       endIcon={<BoxArrowInRight />}
-      onClick={() => loginFunction()}
+      onClick={() => openLoginModal(setModalOpen)}
     >
       Log in
     </Button>

@@ -8,7 +8,7 @@ import { PersonFill } from 'react-bootstrap-icons';
 // import "../TimelineScrollbar.css";
 import '../../index.css';
 import LoginButton from './LoginButton';
-import LogoutButton from './LogoutButton';
+// import LogoutButton from './LogoutButton';
 
 const SideBar = () => {
   const navigate = useNavigate();

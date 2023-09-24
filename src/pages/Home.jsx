@@ -6,6 +6,7 @@ import ThemeContext from '../components/ThemeContext/ThemeContext';
 // files
 import TitleBar from '../components/TitleBar/TitleBar';
 import SideBar from '../components/SideBar/SideBar';
+import LoginModal from '../components/LoginModal/LoginModal';
 // import Timeline from "../components/Timeline";
 // import GameInfoPanel from "../components/GameInfoPanel";
 // import PlayerTeamButton from "../components/PlayerTeamButton";
@@ -53,6 +54,8 @@ const Home = () => {
             ) : (
               ""
             )} */}
+
+            <LoginModal />
           </div>
         </div>
       </div>
