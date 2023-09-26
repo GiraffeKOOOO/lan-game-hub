@@ -2,23 +2,24 @@
 import { useContext } from 'react';
 // context
 import ThemeContext from '../components/ThemeContext/ThemeContext';
-// import GameContext from "../components/GameContext";
+// import GameContext from '../components/GameContext/GameContext';
 // files
 import TitleBar from '../components/TitleBar/TitleBar';
 import SideBar from '../components/SideBar/SideBar';
 import LoginModal from '../components/LoginModal/LoginModal';
 import GameTimelinePanel from '../components/GameTimeline/GameTimelinePanel';
-// import Timeline from "../components/Timeline";
-// import GameInfoPanel from "../components/GameInfoPanel";
+import GameInfoPanel from '../components/GameInfoPanel/GameInfoPanel';
 // import PlayerTeamButton from "../components/PlayerTeamButton";
 // import PlayerTeamList from "../components/PlayerTeamList";
 // styles
-// import "../TimelineScrollbar.css";
-import '../index.css';
 import { BACKGROUND } from '../components/Theme/Colours';
+import '../TimelineScrollbar.css';
+import '../index.css';
+import '../App.css';
 
 const Home = () => {
   const { darkMode } = useContext(ThemeContext);
+  // const { selectedGame, moreInfoHidden, playerTeamButtonHidden } = useContext(GameContext);
 
   return (
     <>
@@ -43,17 +44,22 @@ const Home = () => {
               <GameTimelinePanel />
             </div>
 
-            {/*
             <div id="game-panel" className=" w-full ">
               <GameInfoPanel />
             </div>
-            {selectedGame !== null && playerTeamButtonHidden !== true ? <PlayerTeamButton /> : <div className="h-[40px]" />}
+
+            {/* {selectedGame !== null && playerTeamButtonHidden !== true ? (
+              <PlayerTeamButton />
+            ) : (
+              <div className="h-[40px]" />
+            )}
+
             {moreInfoHidden !== true ? (
               <div className="mt-[40px] mb-[40px]">
                 <PlayerTeamList />
               </div>
             ) : (
-              ""
+              ''
             )} */}
 
             <LoginModal />

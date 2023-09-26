@@ -1,10 +1,10 @@
 // libraries
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useContext } from 'react';
 import Card from 'react-bootstrap/Card';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import axios from 'axios';
 // context
-// import GameContext from './GameContext';
+import GameContext from '../GameContext/GameContext';
 // files
 // import GameListData from './mockData/GameList';
 import StartEndBlock from './StartEndBlock';
@@ -14,7 +14,6 @@ import '../../TimelineScrollbar.css';
 
 const fetchGameInfo = (setGameList) => {
   try {
-    console.log(`API IS CALLED`);
     axios
       .get('http://localhost:5134/api/Game')
       .then((response) => setGameList(response.data))
@@ -25,13 +24,13 @@ const fetchGameInfo = (setGameList) => {
 };
 
 const GameTimelinePanel = () => {
-  //   const { setSelectedGame, setMoreInfoHidden, setPlayerTeamButtonHidden } = useContext(GameContext);
+  const { setSelectedGame, setMoreInfoHidden, setPlayerTeamButtonHidden } = useContext(GameContext);
 
-  //   const handleCardSelection = (game) => {
-  //     setSelectedGame(game);
-  //     setPlayerTeamButtonHidden(false);
-  //     setMoreInfoHidden(true);
-  //   };
+  const handleCardSelection = (game) => {
+    setSelectedGame(game);
+    setPlayerTeamButtonHidden(false);
+    setMoreInfoHidden(true);
+  };
 
   const [gameList, setGameList] = useState({});
   const pathToAssets = '/src/assets/images/';
@@ -54,7 +53,7 @@ const GameTimelinePanel = () => {
             return (
               <Card
                 className="grow-0 shrink-0 w-[300px] hover:border-2 hover:border-green-600 hover:opacity-80"
-                //   onClick={() => handleCardSelection(game)}
+                onClick={() => handleCardSelection(game)}
                 key={game.game_id}
               >
                 <Card.Img
