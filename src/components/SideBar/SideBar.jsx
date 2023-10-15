@@ -1,28 +1,29 @@
 // libraries
-import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { PersonFill } from 'react-bootstrap-icons';
-import { PersonFillGear } from 'react-bootstrap-icons';
+import { Button } from '@mui/material';
+import { PersonFillGear, HouseFill } from 'react-bootstrap-icons';
 // context
 // import GameContext from "../components/GameContext";
 import UserContext from '../UserContext/UserContext';
 // files
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
 // styles
 // import "../TimelineScrollbar.css";
 import '../../index.css';
-import LoginButton from './LoginButton';
-import { useContext } from 'react';
-import LogoutButton from './LogoutButton';
-import { Button } from '@mui/material';
 
 const SideBar = () => {
   const navigate = useNavigate();
+  let location = useLocation();
   const { userName, userRole } = useContext(UserContext);
 
   return (
     <div id="left-body-container" className="h-screen grid grid-rows-8 sticky top-0">
       <div
         id="user-profile"
-        className="w-full my-auto flex flex-row justify-center items-center border-2 border-cyan-400 mt-[10px]"
+        className="w-full my-auto flex flex-row justify-center items-center mt-[10px]"
       >
         <PersonFill
           size={30}
@@ -31,26 +32,55 @@ const SideBar = () => {
         />
       </div>
 
-      <div className="w-full my-auto flex justify-center border-2 border-cyan-400">
-        {userRole === 'Admin' && (
+      {(userRole === 'Admin') &&
+        (location.pathname ===
+          '/' || location.pathname ===
+          '/addgame' || location.pathname ===
+          '/editgame' || location.pathname ===
+          '/deletegame') && (
+            <div className="w-full my-auto flex justify-center">
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: '#95edad',
+                  '&:hover': {
+                    backgroundColor: '#80c492',
+                  },
+                  color: 'black',
+                  fontWeight: 'bold',
+                  height: 45,
+                }}
+                endIcon={<PersonFillGear />}
+                onClick={() => navigate('/admin')}
+              >
+                Admin Panel
+              </Button>
+            </div>,
+          )}
+
+      {(location.pathname === '/admin' || location.pathname ===
+          '/addgame' || location.pathname ===
+          '/editgame' || location.pathname ===
+          '/deletegame') && (
+        <div className="w-full my-auto flex justify-center">
           <Button
             variant="contained"
             sx={{
-              backgroundColor: '#95edad',
+              backgroundColor: '#ffffff',
               '&:hover': {
-                backgroundColor: '#80c492',
+                backgroundColor: '#bfbebd',
               },
               color: 'black',
               fontWeight: 'bold',
               height: 45,
             }}
-            endIcon={<PersonFillGear />}
-            onClick={() => navigate('/admin')}
+            endIcon={<HouseFill />}
+            onClick={() => navigate('/')}
           >
-            Admin Panel
+            Home Page
           </Button>
-        )}
-      </div>
+        </div>
+      )}
 
       <div
         id="sidebar-timeline-container"
@@ -81,7 +111,7 @@ const SideBar = () => {
 
       <div
         id="login"
-        className="w-full my-auto flex flex-row justify-center items-center border-2 border-cyan-400"
+        className="w-full my-auto flex flex-row justify-center items-center"
       >
         {userName ? <LogoutButton /> : <LoginButton />}
       </div>

@@ -7,14 +7,13 @@ import UserContext from '../components/UserContext/UserContext';
 // files
 import TitleBar from '../components/TitleBar/TitleBar';
 import SideBar from '../components/SideBar/SideBar';
-import AdminPageButton from '../components/AdminPageButton/AdminPageButton';
 // styles
 import { BACKGROUND } from '../components/Theme/Colours';
 import '../TimelineScrollbar.css';
 import '../index.css';
 import '../App.css';
 
-const Admin = () => {
+const AddGame = () => {
   const { darkMode } = useContext(ThemeContext);
   const { userRole, userName } = useContext(UserContext);
 
@@ -45,9 +44,7 @@ const Admin = () => {
               id="admin-action-buttons"
               className="h-screen grid grid-cols-3 justify-items-center items-center"
             >
-              <AdminPageButton action="Add" />
-              <AdminPageButton action="Edit" />
-              <AdminPageButton action="Delete" />
+              <p>Add game</p>
             </div>
           </div>
         </div>
@@ -56,4 +53,4 @@ const Admin = () => {
   }
 };
 
-export default Admin;
+export default AddGame;
