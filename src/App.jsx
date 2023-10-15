@@ -9,6 +9,9 @@ import { UserProvider } from './components/UserContext/UserContext';
 import Home from './pages/Home.jsx';
 import Admin from './pages/Admin.jsx';
 import User from './pages/User.jsx';
+import AddGame from './pages/AddGame.jsx';
+import EditGame from './pages/EditGame.jsx';
+import DeleteGame from './pages/DeleteGame.jsx';
 // styles
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,6 +24,18 @@ const router = createBrowserRouter([
   {
     path: '/admin',
     element: <Admin />,
+  },
+  {
+    path: '/addgame',
+    element: <AddGame />,
+  },
+  {
+    path: '/editgame',
+    element: <EditGame />,
+  },
+  {
+    path: '/deletegame',
+    element: <DeleteGame />,
   },
   {
     path: '/user',
