@@ -3,12 +3,15 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 // providers
 import { ThemeProvider } from './components/ThemeContext/ThemeContext';
+import { GameProvider } from './components/GameContext/GameContext';
+import { UserProvider } from './components/UserContext/UserContext';
 // files
 import Home from './pages/Home.jsx';
 import Admin from './pages/Admin.jsx';
 import User from './pages/User.jsx';
 // styles
-import './index.css';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const router = createBrowserRouter([
   {
@@ -28,9 +31,13 @@ const router = createBrowserRouter([
 function App() {
   return (
     <RecoilRoot>
-      <ThemeProvider>
-        <RouterProvider router={router} />
-      </ThemeProvider>
+      <UserProvider>
+        <ThemeProvider>
+          <GameProvider>
+            <RouterProvider router={router} />
+          </GameProvider>
+        </ThemeProvider>
+      </UserProvider>
     </RecoilRoot>
   );
 }

@@ -1,13 +1,9 @@
-
-
 const Admin = () => {
+  return (
+    <>
+      <p>Admin page</p>
+    </>
+  );
+};
 
-    return (
-      <>
-        <p>Admin page</p>
-      </>
-    )
-  }
-  
-  export default Admin
-  
+export default Admin;
