@@ -1,23 +1,47 @@
 // libraries
-import { useContext } from 'react';
+import { useContext, useEffect, useState, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { PersonFill } from 'react-bootstrap-icons';
 import { Button } from '@mui/material';
 import { PersonFillGear, HouseFill } from 'react-bootstrap-icons';
+import ScrollContainer from 'react-indiana-drag-scroll';
+import axios from 'axios';
 // context
 // import GameContext from "../components/GameContext";
 import UserContext from '../UserContext/UserContext';
 // files
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
+import SidebarGameTile from './SidebarGameTile';
 // styles
-// import "../TimelineScrollbar.css";
+import '../../TimelineScrollbar.css';
 import '../../index.css';
 
+const fetchGameInfo = (setGameList) => {
+  try {
+    axios
+      .get('http://localhost:5134/api/Game')
+      .then((response) => setGameList(response.data))
+      .catch((error) => console.log(error.message));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const SideBar = () => {
+  const [gameList, setGameList] = useState({});
+
   const navigate = useNavigate();
   let location = useLocation();
   const { userName, userRole } = useContext(UserContext);
+
+  useEffect(() => {
+    fetchGameInfo(setGameList);
+  }, []);
+
+  const cachedGameList = useMemo(() => {
+    return gameList;
+  }, [gameList]);
 
   return (
     <div id="left-body-container" className="h-screen grid grid-rows-8 sticky top-0">
@@ -32,36 +56,35 @@ const SideBar = () => {
         />
       </div>
 
-      {(userRole === 'Admin') &&
-        (location.pathname ===
-          '/' || location.pathname ===
-          '/addgame' || location.pathname ===
-          '/editgame' || location.pathname ===
-          '/deletegame') && (
-            <div className="w-full my-auto flex justify-center">
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: '#95edad',
-                  '&:hover': {
-                    backgroundColor: '#80c492',
-                  },
-                  color: 'black',
-                  fontWeight: 'bold',
-                  height: 45,
-                }}
-                endIcon={<PersonFillGear />}
-                onClick={() => navigate('/admin')}
-              >
-                Admin Panel
-              </Button>
-            </div>,
-          )}
+      {userRole === 'Admin' &&
+        (location.pathname === '/' ||
+          location.pathname === '/addgame' ||
+          location.pathname === '/editgame' ||
+          location.pathname === '/deletegame') && (
+          <div className="w-full my-auto flex justify-center">
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: '#95edad',
+                '&:hover': {
+                  backgroundColor: '#80c492',
+                },
+                color: 'black',
+                fontWeight: 'bold',
+                height: 45,
+              }}
+              endIcon={<PersonFillGear />}
+              onClick={() => navigate('/admin')}
+            >
+              Admin Panel
+            </Button>
+          </div>
+        )}
 
-      {(location.pathname === '/admin' || location.pathname ===
-          '/addgame' || location.pathname ===
-          '/editgame' || location.pathname ===
-          '/deletegame') && (
+      {(location.pathname === '/admin' ||
+        location.pathname === '/addgame' ||
+        location.pathname === '/editgame' ||
+        location.pathname === '/deletegame') && (
         <div className="w-full my-auto flex justify-center">
           <Button
             variant="contained"
@@ -82,37 +105,18 @@ const SideBar = () => {
         </div>
       )}
 
-      <div
-        id="sidebar-timeline-container"
-        className="w-full h-full row-span-6 my-auto border-2 border-pink-400"
+      <ScrollContainer
+        className="scroll-container h-[600px]"
+        vertical={true}
+        hideScrollbars={false}
       >
-        <div className="w-full border-2 border-cyan-400">
-          <p>game 1 div</p>
+        <div id="sidebar-timeline-container" className=" border-green-400">
+          {gameList.length > 0 &&
+            cachedGameList.map((game) => <SidebarGameTile game={game} key={game.game_id} />)}
         </div>
+      </ScrollContainer>
 
-        <div className="w-full border-2 border-cyan-400">
-          <p>game 2 div</p>
-        </div>
-        <div className="w-full border-2 border-cyan-400">
-          <p>game 1 div</p>
-        </div>
-
-        <div className="w-full border-2 border-cyan-400">
-          <p>game 2 div</p>
-        </div>
-        <div className="w-full border-2 border-cyan-400">
-          <p>game 1 div</p>
-        </div>
-
-        <div className="w-full border-2 border-cyan-400">
-          <p>game 2 div</p>
-        </div>
-      </div>
-
-      <div
-        id="login"
-        className="w-full my-auto flex flex-row justify-center items-center"
-      >
+      <div id="login" className="w-full my-auto flex flex-row justify-center items-center">
         {userName ? <LogoutButton /> : <LoginButton />}
       </div>
     </div>
