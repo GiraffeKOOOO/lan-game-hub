@@ -2,6 +2,7 @@
 import { useContext } from 'react';
 // context
 import ThemeContext from '../components/ThemeContext/ThemeContext';
+// import UserContext from '../components/UserContext/UserContext';
 // import GameContext from '../components/GameContext/GameContext';
 // files
 import TitleBar from '../components/TitleBar/TitleBar';

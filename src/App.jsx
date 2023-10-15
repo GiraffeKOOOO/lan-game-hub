@@ -4,6 +4,7 @@ import { RecoilRoot } from 'recoil';
 // providers
 import { ThemeProvider } from './components/ThemeContext/ThemeContext';
 import { GameProvider } from './components/GameContext/GameContext';
+import { UserProvider } from './components/UserContext/UserContext';
 // files
 import Home from './pages/Home.jsx';
 import Admin from './pages/Admin.jsx';
@@ -30,11 +31,13 @@ const router = createBrowserRouter([
 function App() {
   return (
     <RecoilRoot>
-      <ThemeProvider>
-        <GameProvider>
-          <RouterProvider router={router} />
-        </GameProvider>
-      </ThemeProvider>
+      <UserProvider>
+        <ThemeProvider>
+          <GameProvider>
+            <RouterProvider router={router} />
+          </GameProvider>
+        </ThemeProvider>
+      </UserProvider>
     </RecoilRoot>
   );
 }
