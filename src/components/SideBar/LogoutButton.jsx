@@ -1,15 +1,19 @@
 // libraries
 import { Button } from '@mui/material';
 import { BoxArrowLeft } from 'react-bootstrap-icons';
+import { useNavigate } from 'react-router-dom';
 // styles
 import { FONT_COLOUR } from '../Theme/Colours';
 
-const handleLogout = () => {
-  // TODO : clear the user session here and redirect to login
-  console.log(`log out functions here`);
+const handleLogout = (navigate) => {
+  window.localStorage.clear();
+  navigate('/');
+  window.location.reload(false);
 };
 
 const LogoutButton = () => {
+  const navigate = useNavigate();
+
   return (
     <Button
       variant="contained"
@@ -24,7 +28,7 @@ const LogoutButton = () => {
         height: 45,
       }}
       startIcon={<BoxArrowLeft />}
-      onClick={() => handleLogout()}
+      onClick={() => handleLogout(navigate)}
     >
       Log out
     </Button>
