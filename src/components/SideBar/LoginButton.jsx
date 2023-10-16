@@ -7,10 +7,6 @@ import loginModalState from '../LoginModal/LoginModalState';
 // styles
 import { FONT_COLOUR } from '../Theme/Colours';
 
-const openLoginModal = (setModalOpen) => {
-  setModalOpen(true);
-};
-
 const LoginButton = () => {
   const [, setModalOpen] = useRecoilState(loginModalState);
 
@@ -28,7 +24,7 @@ const LoginButton = () => {
         height: 45,
       }}
       endIcon={<BoxArrowInRight />}
-      onClick={() => openLoginModal(setModalOpen)}
+      onClick={() => setModalOpen(true)}
     >
       Log in
     </Button>
