@@ -10,12 +10,12 @@ import UserContext from '../components/UserContext/UserContext';
 import TitleBar from '../components/TitleBar/TitleBar';
 import SideBar from '../components/SideBar/SideBar';
 import GameListItem from '../components/GameListItem/GameListItem';
+import GameDeleteModal from '../components/GameDeleteModal/GameDeleteModal';
 // styles
 import { BACKGROUND } from '../components/Theme/Colours';
 import '../TimelineScrollbar.css';
 import '../index.css';
 import '../App.css';
-import GameDeleteModal from '../components/GameDeleteModal/GameDeleteModal';
 
 const fetchGameInfo = (setGameList) => {
   try {
