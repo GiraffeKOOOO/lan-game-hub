@@ -5,7 +5,7 @@ import { Box, Button, Modal, Typography } from '@mui/material';
 import { Trash } from 'react-bootstrap-icons';
 // files
 import gameDeleteModalState from './GameDeleteModalState';
-import gameToDelete from './GameDeleteModalState';
+import { gameToDelete } from './GameDeleteModalState';
 
 const style = {
   position: 'absolute',

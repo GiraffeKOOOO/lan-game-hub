@@ -7,8 +7,8 @@ const deleteGameModalState = atom({
 });
 
 export const gameToDelete = atom({
-  key: 'gameId',
-  default: null,
+  key: 'gameToDeleteId',
+  default: {},
 });
 
 export default deleteGameModalState;

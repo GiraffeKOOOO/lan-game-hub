@@ -1,16 +1,20 @@
 // libraries
 import { Button } from '@mui/material';
-import { Trash } from 'react-bootstrap-icons';
+import { Trash, PencilSquare } from 'react-bootstrap-icons';
 import { useRecoilState } from 'recoil';
 // import axios from 'axios';
 // files
 import deleteGameModalState from '../GameDeleteModal/GameDeleteModalState';
-import gameToDelete from '../GameDeleteModal/GameDeleteModalState';
+import { gameToDelete } from '../GameDeleteModal/GameDeleteModalState';
+import editGameModalState from '../GameEditModal/GameEditModalState';
+import { gameToEdit } from '../GameEditModal/GameEditModalState';
 
 const GameListItem = ({ game, action }) => {
   const pathToAssets = '/src/assets/images/';
   const [, setGameDeleteModalOpen] = useRecoilState(deleteGameModalState);
   const [, setGameToDelete] = useRecoilState(gameToDelete);
+  const [, setGameEditModalOpen] = useRecoilState(editGameModalState);
+  const [, setGameToEdit] = useRecoilState(gameToEdit);
 
   return (
     <div className="py-[5px] grid grid-cols-7 bg-slate-400 rounded-md text-center text-bold text-white border-gray-500 border-1 shadow-xl my-[10px]">
@@ -40,6 +44,25 @@ const GameListItem = ({ game, action }) => {
           onClick={() => (setGameDeleteModalOpen(true), setGameToDelete(game))}
         >
           Delete
+        </Button>
+      )}
+      {action === 'edit' && (
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: '#9ac9f5',
+            '&:hover': {
+              backgroundColor: '#83aed6',
+            },
+            color: 'black',
+            fontWeight: 'bold',
+            width: 120,
+            height: 45,
+          }}
+          endIcon={<PencilSquare />}
+          onClick={() => (setGameEditModalOpen(true), setGameToEdit(game))}
+        >
+          Edit
         </Button>
       )}
     </div>
