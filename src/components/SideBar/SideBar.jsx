@@ -7,7 +7,6 @@ import { PersonFillGear, HouseFill } from 'react-bootstrap-icons';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import axios from 'axios';
 // context
-// import GameContext from "../components/GameContext";
 import UserContext from '../UserContext/UserContext';
 // files
 import LoginButton from './LoginButton';

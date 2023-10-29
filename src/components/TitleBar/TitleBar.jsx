@@ -3,7 +3,6 @@ import { useState, useEffect, useContext } from 'react';
 import { Calendar2Week, Clock, BrightnessHighFill, MoonFill } from 'react-bootstrap-icons';
 import Switch from 'react-switch';
 // context
-// import GameContext from "../components/GameContext";
 import ThemeContext from '../ThemeContext/ThemeContext';
 // files
 // styles

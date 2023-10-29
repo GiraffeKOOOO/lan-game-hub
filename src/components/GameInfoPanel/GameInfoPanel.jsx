@@ -78,12 +78,6 @@ const handleUserJoinSuccess = (response, setGamePlayingStatus) => {
 const handleUserJoinFail = (error) => {
   console.log(error);
   alert('An error occurred, please refresh the page and try again');
-  // if ((error.response.status === 400) & (error.response.statusText === 'Bad Request')) {
-  //   return <h1>ERROR OCCURED</h1>;
-  // }
-  // if ((error.response.status === 500) & (error.response.statusText === 'Internal Server Error')) {
-  //   return <h1>ERROR OCCURED</h1>;
-  // }
 };
 
 const userJoinsGame = (selectedGame, userId, setGamePlayingStatus) => {
@@ -224,7 +218,6 @@ const GameInfoPanel = () => {
             </div>
             <div className="grid grid-cols-2">
               <div>
-                {/* PLAYING STATUS */}
                 <p className="mb-[4px]">Current playing status:</p>
                 {cachedGamePlayingStatus ? (
                   <p className="mb-[4px] border-2 rounded-[10px] p-[5px] w-40 mx-auto border-green-500 text-green-600">
@@ -259,7 +252,6 @@ const GameInfoPanel = () => {
                   </span>
                 </Button>
               )}
-              {/* END HERE */}
             </div>
           </Card.Body>
         </Card>
