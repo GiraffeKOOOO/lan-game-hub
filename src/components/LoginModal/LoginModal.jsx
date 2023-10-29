@@ -113,7 +113,6 @@ const LoginModal = () => {
   };
 
   const createUserCall = (formData) => {
-    console.log(`create account data`, formData.createUsername);
     try {
       axios({
         method: 'POST',
