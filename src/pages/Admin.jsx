@@ -3,11 +3,11 @@ import { useContext } from 'react';
 // context
 import ThemeContext from '../components/ThemeContext/ThemeContext';
 import UserContext from '../components/UserContext/UserContext';
-// import GameContext from '../components/GameContext/GameContext';
 // files
 import TitleBar from '../components/TitleBar/TitleBar';
 import SideBar from '../components/SideBar/SideBar';
 import AdminPageButton from '../components/AdminPageButton/AdminPageButton';
+import { USER_TYPE } from '../components/UserContext/UserTypes';
 // styles
 import { BACKGROUND } from '../components/Theme/Colours';
 import '../TimelineScrollbar.css';
@@ -18,7 +18,7 @@ const Admin = () => {
   const { darkMode } = useContext(ThemeContext);
   const { userRole, userName } = useContext(UserContext);
 
-  if (userRole === 'Admin' && userName !== null) {
+  if (userRole === USER_TYPE.ADMIN && userName !== null) {
     return (
       <>
         <div className="grid grid-cols-7 min-h-screen">

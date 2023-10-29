@@ -8,7 +8,6 @@ import { UserProvider } from './components/UserContext/UserContext';
 // files
 import Home from './pages/Home.jsx';
 import Admin from './pages/Admin.jsx';
-import User from './pages/User.jsx';
 import AddGame from './pages/AddGame.jsx';
 import EditGame from './pages/EditGame.jsx';
 import DeleteGame from './pages/DeleteGame.jsx';
@@ -36,10 +35,6 @@ const router = createBrowserRouter([
   {
     path: '/deletegame',
     element: <DeleteGame />,
-  },
-  {
-    path: '/user',
-    element: <User />,
   },
 ]);
 

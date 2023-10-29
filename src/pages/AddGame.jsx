@@ -19,6 +19,7 @@ import UserContext from '../components/UserContext/UserContext';
 // files
 import TitleBar from '../components/TitleBar/TitleBar';
 import SideBar from '../components/SideBar/SideBar';
+import { USER_TYPE } from '../components/UserContext/UserTypes';
 // styles
 import { BACKGROUND } from '../components/Theme/Colours';
 import '../TimelineScrollbar.css';
@@ -90,7 +91,7 @@ const AddGame = () => {
     authenticateCall(data);
   };
 
-  if (userRole === 'Admin' && userName !== null) {
+  if (userRole === USER_TYPE.ADMIN && userName !== null) {
     return (
       <>
         <div className="grid grid-cols-7 min-h-screen">

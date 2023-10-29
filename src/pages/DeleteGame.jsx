@@ -11,6 +11,7 @@ import TitleBar from '../components/TitleBar/TitleBar';
 import SideBar from '../components/SideBar/SideBar';
 import GameListItem from '../components/GameListItem/GameListItem';
 import GameDeleteModal from '../components/GameDeleteModal/GameDeleteModal';
+import { USER_TYPE } from '../components/UserContext/UserTypes';
 // styles
 import { BACKGROUND } from '../components/Theme/Colours';
 import '../TimelineScrollbar.css';
@@ -41,7 +42,7 @@ const DeleteGame = () => {
     return gameList;
   }, [gameList]);
 
-  if (userRole === 'Admin' && userName !== null) {
+  if (userRole === USER_TYPE.ADMIN && userName !== null) {
     return (
       <>
         <div className="grid grid-cols-7 min-h-screen">
