@@ -52,7 +52,7 @@ const SideBar = () => {
         <PersonFill
           size={30}
           className="mx-auto h-[75px] w-[75px] p-[5px] rounded-full bg-slate-100 hover:bg-[#d6d6d6]"
-          onClick={() => navigate('/user')}
+          // onClick={}  make this in to a selectable avatar
         />
       </div>
 

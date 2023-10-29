@@ -47,6 +47,7 @@ const LoginModal = () => {
 
   const handleLogin = (response) => {
     if (response.status === 200) {
+      localStorage.setItem('userId', response.data.user_id);
       localStorage.setItem('userName', response.data.user_name);
       localStorage.setItem('userRole', response.data.user_role);
       localStorage.setItem('remainLoggedIn', remainLoggedChecked);

@@ -1,5 +1,5 @@
 // libraries
-import { useState, useContext } from 'react';
+import { useState, useContext, useMemo, useEffect } from 'react';
 import {
   PersonFill,
   ClockFill,
@@ -9,28 +9,162 @@ import {
 } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import axios from 'axios';
 // context
 import GameContext from '../GameContext/GameContext';
+import UserContext from '../UserContext/UserContext';
 // files
 // import { GameState, GameStateColor } from '../GameContext/GameContext';
+import { USER_TYPE } from '../UserContext/UserTypes';
 // styles
 import '../../App.css';
 
-const GameInfoPanel = () => {
-  const { selectedGame, handleMoreInfoClick } = useContext(GameContext);
+const handleLeaveGameSuccess = (response, setGamePlayingStatus) => {
+  if (response.status === 200) {
+    setGamePlayingStatus(false);
+    window.location.reload(false);
+  }
+};
 
-  const [isUserPlaying, setIsUserPlaying] = useState(false);
+const handleLeaveGameFail = (error) => {
+  console.log(`ERROR`, error);
+  alert('An error occurred, please refresh the page and try again');
+};
+
+const userLeavesGame = (response, selectedGame, userId, setGamePlayingStatus) => {
+  if (selectedGame == null || userId == null || response.status !== 200) return;
+
+  try {
+    axios({
+      method: 'DELETE',
+      url: 'http://localhost:5134/api/GetGamePlayerStatus',
+      headers: {
+        'content-type': 'application/json',
+      },
+      data: {
+        action_id: response.data,
+        game_id: selectedGame.game_id,
+        user_id: userId,
+      },
+    })
+      .then((response) => handleLeaveGameSuccess(response, setGamePlayingStatus))
+      .catch((error) => handleLeaveGameFail(error));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchGameAction = (selectedGame, userId, setGamePlayingStatus) => {
+  if (selectedGame == null || userId == null) return;
+
+  try {
+    axios
+      .get(
+        `http://localhost:5134/api/GetGamePlayerAction?gameId=${selectedGame.game_id}&userId=${userId}`,
+      )
+      .then((response) => userLeavesGame(response, selectedGame, userId, setGamePlayingStatus))
+      .catch(() => alert('An error occurred, please refresh the page and try again'));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const handleUserJoinSuccess = (response, setGamePlayingStatus) => {
+  if (response.status === 200) {
+    setGamePlayingStatus(true);
+  }
+};
+
+const handleUserJoinFail = (error) => {
+  console.log(error);
+  alert('An error occurred, please refresh the page and try again');
+  // if ((error.response.status === 400) & (error.response.statusText === 'Bad Request')) {
+  //   return <h1>ERROR OCCURED</h1>;
+  // }
+  // if ((error.response.status === 500) & (error.response.statusText === 'Internal Server Error')) {
+  //   return <h1>ERROR OCCURED</h1>;
+  // }
+};
+
+const userJoinsGame = (selectedGame, userId, setGamePlayingStatus) => {
+  if (selectedGame == null || userId == null) return;
+
+  try {
+    axios({
+      method: 'POST',
+      url: 'http://localhost:5134/api/GetGamePlayerStatus',
+      headers: {
+        'content-type': 'application/json',
+      },
+      data: {
+        game_id: selectedGame.game_id,
+        user_id: userId,
+      },
+    })
+      .then((response) => handleUserJoinSuccess(response, setGamePlayingStatus))
+      .catch((error) => handleUserJoinFail(error));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchGameStatus = (selectedGame, userId, setGamePlayingStatus) => {
+  if (selectedGame == null) return;
+  try {
+    axios
+      .get(
+        `http://localhost:5134/api/GetGamePlayerStatus?gameId=${selectedGame.game_id}&userId=${userId}`,
+      )
+      .then((response) => setGamePlayingStatus(response.data))
+      .catch(() => setGamePlayingStatus(null));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchGameCount = (selectedGame, setGameCount) => {
+  if (selectedGame == null) return;
+  try {
+    axios
+      .get(`http://localhost:5134/api/GetGamePlayerCount/${selectedGame.game_id}`)
+      .then((response) => setGameCount(response.data))
+      .catch(() => setGameCount(null));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const GameInfoPanel = () => {
   const pathToAssets = '/src/assets/images/';
 
+  const { selectedGame, handleMoreInfoClick } = useContext(GameContext);
+  const { userRole, userName, userId } = useContext(UserContext);
+
+  const [gameCount, setGameCount] = useState(null);
+  const [gamePlayingStatus, setGamePlayingStatus] = useState(false);
+
+  const cachedGameCount = useMemo(() => {
+    return gameCount;
+  }, [gameCount]);
+
+  const cachedGamePlayingStatus = useMemo(() => {
+    return gamePlayingStatus;
+  }, [gamePlayingStatus]);
+
   const handleUserJoining = () => {
-    setIsUserPlaying(true);
+    userJoinsGame(selectedGame, userId, setGamePlayingStatus);
     handleMoreInfoClick();
   };
 
   const handleUserLeaving = () => {
-    setIsUserPlaying(false);
+    fetchGameAction(selectedGame, userId, setGamePlayingStatus);
     handleMoreInfoClick();
   };
+
+  useEffect(() => {
+    fetchGameCount(selectedGame, setGameCount);
+    fetchGameStatus(selectedGame, userId, setGamePlayingStatus);
+  }, [selectedGame, userId]);
 
   if (selectedGame === null) {
     return (
@@ -44,7 +178,9 @@ const GameInfoPanel = () => {
         </Card>
       </>
     );
-  } else {
+  }
+
+  if (userRole == USER_TYPE.USER && userName != null) {
     return (
       <>
         <Card className="mx-auto w-[600px] my-[40px]">
@@ -59,8 +195,7 @@ const GameInfoPanel = () => {
               <div className="row-span-3 bg-slate-200 rounded-lg mr-[30px] mb-[10px]  ml-[15px]">
                 <p className="mb-2 mt-[30px]">Players</p>
                 <PersonFill size={40} className="mx-auto" />
-                {/* TODO: blocked until player tables are implemented */}
-                {/* <p className="mb-0">{selectedGame.players.length}</p> */}
+                <p className="mb-0">{cachedGameCount}</p>
               </div>
               <div className="col-span-2 bg-slate-200 rounded-lg mb-[15px] mr-[15px]">
                 <p className="mb-0">Game mode</p>
@@ -89,8 +224,9 @@ const GameInfoPanel = () => {
             </div>
             <div className="grid grid-cols-2">
               <div>
+                {/* PLAYING STATUS */}
                 <p className="mb-[4px]">Current playing status:</p>
-                {isUserPlaying ? (
+                {cachedGamePlayingStatus ? (
                   <p className="mb-[4px] border-2 rounded-[10px] p-[5px] w-40 mx-auto border-green-500 text-green-600">
                     Playing
                   </p>
@@ -100,7 +236,7 @@ const GameInfoPanel = () => {
                   </p>
                 )}
               </div>
-              {isUserPlaying ? (
+              {cachedGamePlayingStatus ? (
                 <Button
                   className="w-40 h-10 mt-[27px] mx-auto"
                   variant="danger"
@@ -123,6 +259,54 @@ const GameInfoPanel = () => {
                   </span>
                 </Button>
               )}
+              {/* END HERE */}
+            </div>
+          </Card.Body>
+        </Card>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Card className="mx-auto w-[600px] my-[40px]">
+          <Card.Img
+            variant="top"
+            src={`${pathToAssets}${selectedGame.game_image_string}`}
+            className="h-[250px] w-[300px]"
+          />
+          <Card.Body className="text-center p-1">
+            <Card.Title className="mb-0 border-y-2 py-[15px]">{selectedGame.game_title}</Card.Title>
+            <div className="grid grid-rows-2 grid-flow-col mt-[20px]">
+              <div className="row-span-3 bg-slate-200 rounded-lg mr-[30px] mb-[10px]  ml-[15px]">
+                <p className="mb-2 mt-[30px]">Players</p>
+                <PersonFill size={40} className="mx-auto" />
+                {/* TODO: blocked until player tables are implemented */}
+                <p className="mb-0">{cachedGameCount}</p>
+              </div>
+              <div className="col-span-2 bg-slate-200 rounded-lg mb-[15px] mr-[15px]">
+                <p className="mb-0">Game mode</p>
+                <Controller size={20} className="mx-auto" />
+                <p className="mb-0">{selectedGame.game_mode}</p>
+              </div>
+              <div className="row-span-2 col-span-2 bg-slate-200 rounded-lg mb-[10px] mr-[15px]">
+                <p className="mb-0">Starts at</p>
+                <ClockFill size={30} className="mx-auto" />
+                <p className="mb-0">{selectedGame.game_start_time}</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 border-t-2 my-[5px]">
+              <p className="col-span-1 mx-auto my-[10px] bg-slate-200 rounded-lg py-[10px] px-[40px]">
+                Game status:
+              </p>
+              <p
+                className={
+                  `col-span-1 mx-auto my-[10px] rounded-lg py-[10px] px-[40px] justify-start ` + ' '
+                  // gameStateColor(selectedGame.state)
+                }
+              >
+                {/* {gameStateText(selectedGame.state)} */}
+                {selectedGame.game_state}
+              </p>
             </div>
           </Card.Body>
         </Card>
