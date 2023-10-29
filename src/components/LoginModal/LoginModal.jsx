@@ -96,16 +96,16 @@ const LoginModal = () => {
   const handleCreateFail = (error) => {
     console.log(error);
     if ((error.response.status === 400) & (error.response.statusText === 'Bad Request')) {
-      setError('password', {
+      setError('createPassword', {
         types: {
-          failedAuth: 'Incorrect username or password',
+          failedCreate: 'An error occurred, please try again',
         },
       });
     }
     if ((error.response.status === 500) & (error.response.statusText === 'Internal Server Error')) {
-      setError('password', {
+      setError('createPassword', {
         types: {
-          failedAuth: 'Incorrect username or password',
+          failedCreate: 'An error occurred, please try again',
         },
       });
     }
@@ -117,7 +117,7 @@ const LoginModal = () => {
     try {
       axios({
         method: 'POST',
-        url: 'http://localhost:5134/api/USer',
+        url: 'http://localhost:5134/api/User',
         headers: {
           'content-type': 'application/json',
         },
@@ -261,10 +261,11 @@ const LoginModal = () => {
                           <PersonCircle />
                         </InputAdornment>
                       ),
+                      maxLength: 10,
                     }}
                     {...register('createUsername', { required: true })}
                   />
-                  {errors.username?.type === 'required' && (
+                  {errors.createUsername?.type === 'required' && (
                     <p className="text-red">Username is required</p>
                   )}
                 </Stack>
@@ -280,14 +281,15 @@ const LoginModal = () => {
                           <KeyFill />
                         </InputAdornment>
                       ),
+                      maxLength: 50,
                     }}
                     {...register('createPassword', { required: true })}
                   />
-                  {errors.password?.type === 'required' && (
+                  {errors.createPassword?.type === 'required' && (
                     <p className="text-red">Password is required</p>
                   )}
-                  {errors.password && errors.password.types && (
-                    <p>{errors.password.types.failedAuth}</p>
+                  {errors.createPassword && errors.createPassword.types && (
+                    <p>{errors.createPassword.types.failedCreate}</p>
                   )}
                 </Stack>
                 <Stack direction={'row'} className="gap-4">
