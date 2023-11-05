@@ -38,6 +38,19 @@ export function GameProvider({ children }) {
     setPlayerTeamButtonHidden(true);
   };
 
+  const returnGameStatusColor = (gameStatusString) => {
+    switch (gameStatusString) {
+      case 'FINISHED':
+        return GameStateColor.FINISHED;
+      case 'INPROGRESS':
+        return GameStateColor.INPROGRESS;
+      case 'UPNEXT':
+        return GameStateColor.UPNEXT;
+      case 'INQUEUE':
+        return GameStateColor.INQUEUE;
+    }
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -49,6 +62,7 @@ export function GameProvider({ children }) {
         setMoreInfoHidden,
         teamPlayerTableRef,
         handleMoreInfoClick,
+        returnGameStatusColor,
       }}
     >
       {children}

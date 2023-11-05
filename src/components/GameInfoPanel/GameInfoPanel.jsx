@@ -131,7 +131,7 @@ const fetchGameCount = (selectedGame, setGameCount) => {
 const GameInfoPanel = () => {
   const pathToAssets = '/src/assets/images/';
 
-  const { selectedGame, handleMoreInfoClick } = useContext(GameContext);
+  const { selectedGame, handleMoreInfoClick, returnGameStatusColor } = useContext(GameContext);
   const { userRole, userName, userId } = useContext(UserContext);
 
   const [gameCount, setGameCount] = useState(null);
@@ -158,7 +158,7 @@ const GameInfoPanel = () => {
   useEffect(() => {
     fetchGameCount(selectedGame, setGameCount);
     fetchGameStatus(selectedGame, userId, setGamePlayingStatus);
-  }, [selectedGame, userId]);
+  }, [selectedGame, userId, cachedGamePlayingStatus]);
 
   if (selectedGame === null) {
     return (
@@ -207,10 +207,9 @@ const GameInfoPanel = () => {
                 Game status:
               </p>
               <p
-                className={
-                  `col-span-1 mx-auto my-[10px] rounded-lg py-[10px] px-[40px] justify-start ` + ' '
-                  // gameStateColor(selectedGame.state)
-                }
+                className={`col-span-1 mx-auto my-[10px] rounded-lg py-[10px] px-[40px] justify-start ${returnGameStatusColor(
+                  selectedGame.game_state,
+                )}`}
               >
                 {/* {gameStateText(selectedGame.state)} */}
                 {selectedGame.game_state}
