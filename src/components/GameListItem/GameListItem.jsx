@@ -2,7 +2,6 @@
 import { Button } from '@mui/material';
 import { Trash, PencilSquare } from 'react-bootstrap-icons';
 import { useRecoilState } from 'recoil';
-// import axios from 'axios';
 // files
 import deleteGameModalState from '../GameDeleteModal/GameDeleteModalState';
 import { gameToDelete } from '../GameDeleteModal/GameDeleteModalState';

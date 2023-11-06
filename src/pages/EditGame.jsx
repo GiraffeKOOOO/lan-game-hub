@@ -11,7 +11,6 @@ import SideBar from '../components/SideBar/SideBar';
 import GameListItem from '../components/GameListItem/GameListItem';
 import GameEditModal from '../components/GameEditModal/GameEditModal';
 import { USER_TYPE } from '../components/UserContext/UserTypes';
-
 // styles
 import { BACKGROUND } from '../components/Theme/Colours';
 import '../TimelineScrollbar.css';

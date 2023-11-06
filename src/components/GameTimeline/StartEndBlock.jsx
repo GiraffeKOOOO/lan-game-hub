@@ -1,5 +1,6 @@
 // libraries
 import Card from 'react-bootstrap/Card';
+// files
 import startFlag from '../../assets/images/start-flag.jpg';
 import finishFlag from '../../assets/images/finish-flag.jpg';
 

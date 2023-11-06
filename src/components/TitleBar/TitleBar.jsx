@@ -4,7 +4,6 @@ import { Calendar2Week, Clock, BrightnessHighFill, MoonFill } from 'react-bootst
 import Switch from 'react-switch';
 // context
 import ThemeContext from '../ThemeContext/ThemeContext';
-// files
 // styles
 import { FONT_COLOUR } from '../Theme/Colours';
 

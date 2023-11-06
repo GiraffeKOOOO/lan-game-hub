@@ -6,7 +6,6 @@ import axios from 'axios';
 // context
 import GameContext from '../GameContext/GameContext';
 // files
-// import GameListData from './mockData/GameList';
 import StartEndBlock from './StartEndBlock';
 // styles
 import '../../App.css';

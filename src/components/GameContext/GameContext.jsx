@@ -1,5 +1,8 @@
 // libraries
 import { useState, createContext, useRef } from 'react';
+import { useRecoilState } from 'recoil';
+// files
+import viewPlayerListState from '../PlayerList/PlayerListState';
 
 export const GameState = {
   FINISHED: 'Finished',
@@ -21,6 +24,7 @@ export function GameProvider({ children }) {
   const [selectedGame, setSelectedGame] = useState(null);
   const [playerTeamButtonHidden, setPlayerTeamButtonHidden] = useState(false);
   const [moreInfoHidden, setMoreInfoHidden] = useState(true);
+  const [, setViewPlayerList] = useRecoilState(viewPlayerListState);
   const teamPlayerTableRef = useRef(null);
 
   const scrollToSection = (elementRef) => {
@@ -31,11 +35,10 @@ export function GameProvider({ children }) {
   };
 
   const handleMoreInfoClick = () => {
-    setMoreInfoHidden(false);
     setTimeout(() => {
       scrollToSection(teamPlayerTableRef);
     }, 100);
-    setPlayerTeamButtonHidden(true);
+    setViewPlayerList(true);
   };
 
   const returnGameStatusColor = (gameStatusString) => {

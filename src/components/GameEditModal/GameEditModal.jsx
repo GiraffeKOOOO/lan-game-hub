@@ -12,7 +12,6 @@ import {
   FileEarmarkImage,
   Check2Circle,
 } from 'react-bootstrap-icons';
-
 // files
 import editGameModalState from './GameEditModalState';
 import { gameToEdit } from './GameEditModalState';
