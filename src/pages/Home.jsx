@@ -2,16 +2,13 @@
 import { useContext } from 'react';
 // context
 import ThemeContext from '../components/ThemeContext/ThemeContext';
-// import UserContext from '../components/UserContext/UserContext';
-// import GameContext from '../components/GameContext/GameContext';
 // files
 import TitleBar from '../components/TitleBar/TitleBar';
 import SideBar from '../components/SideBar/SideBar';
 import LoginModal from '../components/LoginModal/LoginModal';
 import GameTimelinePanel from '../components/GameTimeline/GameTimelinePanel';
 import GameInfoPanel from '../components/GameInfoPanel/GameInfoPanel';
-// import PlayerTeamButton from "../components/PlayerTeamButton";
-// import PlayerTeamList from "../components/PlayerTeamList";
+import PlayerList from '../components/PlayerList/PlayerList';
 // styles
 import { BACKGROUND } from '../components/Theme/Colours';
 import '../TimelineScrollbar.css';
@@ -20,7 +17,6 @@ import '../App.css';
 
 const Home = () => {
   const { darkMode } = useContext(ThemeContext);
-  // const { selectedGame, moreInfoHidden, playerTeamButtonHidden } = useContext(GameContext);
 
   return (
     <>
@@ -49,19 +45,9 @@ const Home = () => {
               <GameInfoPanel />
             </div>
 
-            {/* {selectedGame !== null && playerTeamButtonHidden !== true ? (
-              <PlayerTeamButton />
-            ) : (
-              <div className="h-[40px]" />
-            )}
-
-            {moreInfoHidden !== true ? (
-              <div className="mt-[40px] mb-[40px]">
-                <PlayerTeamList />
-              </div>
-            ) : (
-              ''
-            )} */}
+            <div id="player-list" className=" w-full ">
+              <PlayerList />
+            </div>
 
             <LoginModal />
           </div>

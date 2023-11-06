@@ -4,17 +4,19 @@ import {
   PersonFill,
   ClockFill,
   Controller,
+  PeopleFill,
   PlusCircleFill,
   XCircleFill,
 } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
 // context
 import GameContext from '../GameContext/GameContext';
 import UserContext from '../UserContext/UserContext';
 // files
-// import { GameState, GameStateColor } from '../GameContext/GameContext';
+import viewPlayerListState from '../PlayerList/PlayerListState';
 import { USER_TYPE } from '../UserContext/UserTypes';
 // styles
 import '../../App.css';
@@ -78,12 +80,6 @@ const handleUserJoinSuccess = (response, setGamePlayingStatus) => {
 const handleUserJoinFail = (error) => {
   console.log(error);
   alert('An error occurred, please refresh the page and try again');
-  // if ((error.response.status === 400) & (error.response.statusText === 'Bad Request')) {
-  //   return <h1>ERROR OCCURED</h1>;
-  // }
-  // if ((error.response.status === 500) & (error.response.statusText === 'Internal Server Error')) {
-  //   return <h1>ERROR OCCURED</h1>;
-  // }
 };
 
 const userJoinsGame = (selectedGame, userId, setGamePlayingStatus) => {
@@ -137,11 +133,12 @@ const fetchGameCount = (selectedGame, setGameCount) => {
 const GameInfoPanel = () => {
   const pathToAssets = '/src/assets/images/';
 
-  const { selectedGame, handleMoreInfoClick } = useContext(GameContext);
+  const { selectedGame, handleMoreInfoClick, returnGameStatusColor } = useContext(GameContext);
   const { userRole, userName, userId } = useContext(UserContext);
 
   const [gameCount, setGameCount] = useState(null);
   const [gamePlayingStatus, setGamePlayingStatus] = useState(false);
+  const [viewPlayerList] = useRecoilState(viewPlayerListState);
 
   const cachedGameCount = useMemo(() => {
     return gameCount;
@@ -153,18 +150,16 @@ const GameInfoPanel = () => {
 
   const handleUserJoining = () => {
     userJoinsGame(selectedGame, userId, setGamePlayingStatus);
-    handleMoreInfoClick();
   };
 
   const handleUserLeaving = () => {
     fetchGameAction(selectedGame, userId, setGamePlayingStatus);
-    handleMoreInfoClick();
   };
 
   useEffect(() => {
     fetchGameCount(selectedGame, setGameCount);
     fetchGameStatus(selectedGame, userId, setGamePlayingStatus);
-  }, [selectedGame, userId]);
+  }, [selectedGame, userId, cachedGamePlayingStatus]);
 
   if (selectedGame === null) {
     return (
@@ -180,51 +175,49 @@ const GameInfoPanel = () => {
     );
   }
 
-  if (userRole == USER_TYPE.USER && userName != null) {
-    return (
-      <>
-        <Card className="mx-auto w-[600px] my-[40px]">
-          <Card.Img
-            variant="top"
-            src={`${pathToAssets}${selectedGame.game_image_string}`}
-            className="h-[250px] w-[300px]"
-          />
-          <Card.Body className="text-center p-1">
-            <Card.Title className="mb-0 border-y-2 py-[15px]">{selectedGame.game_title}</Card.Title>
-            <div className="grid grid-rows-2 grid-flow-col mt-[20px]">
-              <div className="row-span-3 bg-slate-200 rounded-lg mr-[30px] mb-[10px]  ml-[15px]">
-                <p className="mb-2 mt-[30px]">Players</p>
-                <PersonFill size={40} className="mx-auto" />
-                <p className="mb-0">{cachedGameCount}</p>
-              </div>
-              <div className="col-span-2 bg-slate-200 rounded-lg mb-[15px] mr-[15px]">
-                <p className="mb-0">Game mode</p>
-                <Controller size={20} className="mx-auto" />
-                <p className="mb-0">{selectedGame.game_mode}</p>
-              </div>
-              <div className="row-span-2 col-span-2 bg-slate-200 rounded-lg mb-[10px] mr-[15px]">
-                <p className="mb-0">Starts at</p>
-                <ClockFill size={30} className="mx-auto" />
-                <p className="mb-0">{selectedGame.game_start_time}</p>
-              </div>
+  return (
+    <>
+      <Card className="mx-auto w-[600px] my-[40px]">
+        <Card.Img
+          variant="top"
+          src={`${pathToAssets}${selectedGame.game_image_string}`}
+          className="h-[250px] w-[300px]"
+        />
+        <Card.Body className="text-center p-1">
+          <Card.Title className="mb-0 border-y-2 py-[15px]">{selectedGame.game_title}</Card.Title>
+          <div className="grid grid-rows-2 grid-flow-col mt-[20px]">
+            <div className="row-span-3 bg-slate-200 rounded-lg mr-[30px] mb-[10px]  ml-[15px]">
+              <p className="mb-2 mt-[30px]">Players</p>
+              <PersonFill size={40} className="mx-auto" />
+              <p className="mb-0">{cachedGameCount}</p>
             </div>
-            <div className="grid grid-cols-2 border-y-2 my-[5px]">
-              <p className="col-span-1 mx-auto my-[10px] bg-slate-200 rounded-lg py-[10px] px-[40px]">
-                Game status:
-              </p>
-              <p
-                className={
-                  `col-span-1 mx-auto my-[10px] rounded-lg py-[10px] px-[40px] justify-start ` + ' '
-                  // gameStateColor(selectedGame.state)
-                }
-              >
-                {/* {gameStateText(selectedGame.state)} */}
-                {selectedGame.game_state}
-              </p>
+            <div className="col-span-2 bg-slate-200 rounded-lg mb-[15px] mr-[15px]">
+              <p className="mb-0">Game mode</p>
+              <Controller size={20} className="mx-auto" />
+              <p className="mb-0">{selectedGame.game_mode}</p>
             </div>
-            <div className="grid grid-cols-2">
+            <div className="row-span-2 col-span-2 bg-slate-200 rounded-lg mb-[10px] mr-[15px]">
+              <p className="mb-0">Starts at</p>
+              <ClockFill size={30} className="mx-auto" />
+              <p className="mb-0">{selectedGame.game_start_time}</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 border-y-2 my-[5px]">
+            <p className="col-span-1 mx-auto my-[10px] bg-slate-200 rounded-lg py-[10px] px-[40px]">
+              Game status:
+            </p>
+            <p
+              className={`col-span-1 mx-auto my-[10px] rounded-lg py-[10px] px-[40px] justify-start ${returnGameStatusColor(
+                selectedGame.game_state,
+              )}`}
+            >
+              {/* {gameStateText(selectedGame.state)} should print out a nice game state than just whats coming back from the backend*/}
+              {selectedGame.game_state}
+            </p>
+          </div>
+          <div className="grid grid-cols-2">
+            {userRole === USER_TYPE.USER && userName !== null && (
               <div>
-                {/* PLAYING STATUS */}
                 <p className="mb-[4px]">Current playing status:</p>
                 {cachedGamePlayingStatus ? (
                   <p className="mb-[4px] border-2 rounded-[10px] p-[5px] w-40 mx-auto border-green-500 text-green-600">
@@ -236,7 +229,11 @@ const GameInfoPanel = () => {
                   </p>
                 )}
               </div>
-              {cachedGamePlayingStatus ? (
+            )}
+
+            {userRole === USER_TYPE.USER &&
+              userName !== null &&
+              (cachedGamePlayingStatus ? (
                 <Button
                   className="w-40 h-10 mt-[27px] mx-auto"
                   variant="danger"
@@ -258,61 +255,30 @@ const GameInfoPanel = () => {
                     <PlusCircleFill size={20} className="mt-[4px]" />
                   </span>
                 </Button>
-              )}
-              {/* END HERE */}
-            </div>
-          </Card.Body>
-        </Card>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <Card className="mx-auto w-[600px] my-[40px]">
-          <Card.Img
-            variant="top"
-            src={`${pathToAssets}${selectedGame.game_image_string}`}
-            className="h-[250px] w-[300px]"
-          />
-          <Card.Body className="text-center p-1">
-            <Card.Title className="mb-0 border-y-2 py-[15px]">{selectedGame.game_title}</Card.Title>
-            <div className="grid grid-rows-2 grid-flow-col mt-[20px]">
-              <div className="row-span-3 bg-slate-200 rounded-lg mr-[30px] mb-[10px]  ml-[15px]">
-                <p className="mb-2 mt-[30px]">Players</p>
-                <PersonFill size={40} className="mx-auto" />
-                {/* TODO: blocked until player tables are implemented */}
-                <p className="mb-0">{cachedGameCount}</p>
-              </div>
-              <div className="col-span-2 bg-slate-200 rounded-lg mb-[15px] mr-[15px]">
-                <p className="mb-0">Game mode</p>
-                <Controller size={20} className="mx-auto" />
-                <p className="mb-0">{selectedGame.game_mode}</p>
-              </div>
-              <div className="row-span-2 col-span-2 bg-slate-200 rounded-lg mb-[10px] mr-[15px]">
-                <p className="mb-0">Starts at</p>
-                <ClockFill size={30} className="mx-auto" />
-                <p className="mb-0">{selectedGame.game_start_time}</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 border-t-2 my-[5px]">
-              <p className="col-span-1 mx-auto my-[10px] bg-slate-200 rounded-lg py-[10px] px-[40px]">
-                Game status:
-              </p>
-              <p
-                className={
-                  `col-span-1 mx-auto my-[10px] rounded-lg py-[10px] px-[40px] justify-start ` + ' '
-                  // gameStateColor(selectedGame.state)
-                }
-              >
-                {/* {gameStateText(selectedGame.state)} */}
-                {selectedGame.game_state}
-              </p>
-            </div>
-          </Card.Body>
-        </Card>
-      </>
-    );
-  }
+              ))}
+          </div>
+
+          <div
+            className={`${userRole === USER_TYPE.USER && userName !== null ? 'border-t-2' : ''}`}
+          >
+            <Button
+              className={`w-60 h-10 mx-auto ${
+                userRole === USER_TYPE.USER && userName !== null ? 'mt-[10px] mb-[5px]' : 'my-[5px]'
+              }`}
+              variant="primary"
+              onClick={() => handleMoreInfoClick()}
+              disabled={viewPlayerList}
+            >
+              <span className="flex">
+                <p className="ml-10px mx-auto">View player list</p>
+                <PeopleFill size={20} className="mt-[4px]" />
+              </span>
+            </Button>
+          </div>
+        </Card.Body>
+      </Card>
+    </>
+  );
 };
 
 export default GameInfoPanel;

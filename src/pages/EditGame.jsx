@@ -5,14 +5,12 @@ import { Typography } from '@mui/material';
 // context
 import ThemeContext from '../components/ThemeContext/ThemeContext';
 import UserContext from '../components/UserContext/UserContext';
-// import GameContext from '../components/GameContext/GameContext';
 // files
 import TitleBar from '../components/TitleBar/TitleBar';
 import SideBar from '../components/SideBar/SideBar';
 import GameListItem from '../components/GameListItem/GameListItem';
 import GameEditModal from '../components/GameEditModal/GameEditModal';
 import { USER_TYPE } from '../components/UserContext/UserTypes';
-
 // styles
 import { BACKGROUND } from '../components/Theme/Colours';
 import '../TimelineScrollbar.css';
