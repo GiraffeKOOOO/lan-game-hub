@@ -33,7 +33,7 @@ const handleLeaveGameFail = (error) => {
   alert('An error occurred, please refresh the page and try again');
 };
 
-const userLeavesGame = (response, selectedGame, userId, setGamePlayingStatus) => {
+const userLeavesGame = (response, selectedGame, userId, userName, setGamePlayingStatus) => {
   if (selectedGame == null || userId == null || response.status !== 200) return;
 
   try {
@@ -47,6 +47,7 @@ const userLeavesGame = (response, selectedGame, userId, setGamePlayingStatus) =>
         action_id: response.data,
         game_id: selectedGame.game_id,
         user_id: userId,
+        user_name: userName,
       },
     })
       .then((response) => handleLeaveGameSuccess(response, setGamePlayingStatus))
@@ -56,15 +57,17 @@ const userLeavesGame = (response, selectedGame, userId, setGamePlayingStatus) =>
   }
 };
 
-const fetchGameAction = (selectedGame, userId, setGamePlayingStatus) => {
-  if (selectedGame == null || userId == null) return;
+const fetchGameAction = (selectedGame, userId, userName, setGamePlayingStatus) => {
+  if (selectedGame == null || userId == null || userName == null) return;
 
   try {
     axios
       .get(
         `http://localhost:5134/api/GetGamePlayerAction?gameId=${selectedGame.game_id}&userId=${userId}`,
       )
-      .then((response) => userLeavesGame(response, selectedGame, userId, setGamePlayingStatus))
+      .then((response) =>
+        userLeavesGame(response, selectedGame, userId, userName, setGamePlayingStatus),
+      )
       .catch(() => alert('An error occurred, please refresh the page and try again'));
   } catch (error) {
     console.log(error);
@@ -82,7 +85,7 @@ const handleUserJoinFail = (error) => {
   alert('An error occurred, please refresh the page and try again');
 };
 
-const userJoinsGame = (selectedGame, userId, setGamePlayingStatus) => {
+const userJoinsGame = (selectedGame, userId, userName, setGamePlayingStatus) => {
   if (selectedGame == null || userId == null) return;
 
   try {
@@ -95,6 +98,7 @@ const userJoinsGame = (selectedGame, userId, setGamePlayingStatus) => {
       data: {
         game_id: selectedGame.game_id,
         user_id: userId,
+        user_name: userName,
       },
     })
       .then((response) => handleUserJoinSuccess(response, setGamePlayingStatus))
@@ -149,11 +153,11 @@ const GameInfoPanel = () => {
   }, [gamePlayingStatus]);
 
   const handleUserJoining = () => {
-    userJoinsGame(selectedGame, userId, setGamePlayingStatus);
+    userJoinsGame(selectedGame, userId, userName, setGamePlayingStatus);
   };
 
   const handleUserLeaving = () => {
-    fetchGameAction(selectedGame, userId, setGamePlayingStatus);
+    fetchGameAction(selectedGame, userId, userName, setGamePlayingStatus);
   };
 
   useEffect(() => {
@@ -216,7 +220,7 @@ const GameInfoPanel = () => {
             </p>
           </div>
           <div className="grid grid-cols-2">
-            {userRole === USER_TYPE.USER && userName !== null && (
+            {userRole !== null && userName !== null && (
               <div>
                 <p className="mb-[4px]">Current playing status:</p>
                 {cachedGamePlayingStatus ? (
@@ -231,7 +235,7 @@ const GameInfoPanel = () => {
               </div>
             )}
 
-            {userRole === USER_TYPE.USER &&
+            {userRole !== null &&
               userName !== null &&
               (cachedGamePlayingStatus ? (
                 <Button
@@ -258,12 +262,10 @@ const GameInfoPanel = () => {
               ))}
           </div>
 
-          <div
-            className={`${userRole === USER_TYPE.USER && userName !== null ? 'border-t-2' : ''}`}
-          >
+          <div className={`${userRole !== null && userName !== null ? 'border-t-2' : ''}`}>
             <Button
               className={`w-60 h-10 mx-auto ${
-                userRole === USER_TYPE.USER && userName !== null ? 'mt-[10px] mb-[5px]' : 'my-[5px]'
+                userRole !== null && userName !== null ? 'mt-[10px] mb-[5px]' : 'my-[5px]'
               }`}
               variant="primary"
               onClick={() => handleMoreInfoClick()}
