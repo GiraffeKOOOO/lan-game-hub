@@ -1,17 +1,22 @@
 // libraries
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { Box, Button, InputAdornment, Modal, Stack, TextField, Typography } from '@mui/material';
 import {
-  Fonts,
-  Dice6,
-  Clock,
-  Stack as StackIcon,
-  FileEarmarkImage,
-  Check2Circle,
-} from 'react-bootstrap-icons';
+  Box,
+  Button,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Modal,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { Fonts, Dice6, Clock, Check2Circle } from 'react-bootstrap-icons';
 // files
 import editGameModalState from './GameEditModalState';
 import { gameToEdit } from './GameEditModalState';
@@ -26,6 +31,15 @@ const style = {
   p: 2,
   borderRadius: 0.8,
 };
+
+const gameStateType = ['INPROGRESS', 'UPNEXT', 'INQUEUE', 'FINISHED'];
+const gameImageStringOptions = [
+  'apex-banner.jpg',
+  'cs2-banner.jpg',
+  'lol-banner.jpg',
+  'rl-banner.jpg',
+  'tf2-banner.jpg',
+];
 
 const GameEditModal = () => {
   const [editModalOpen, setDeleteModalOpen] = useRecoilState(editGameModalState);
@@ -50,6 +64,9 @@ const GameEditModal = () => {
       setValue('gameImageString', gameToEditObject.game_image_string);
     }
   }, [gameToEditObject, setValue]);
+
+  const [gameState, setGameState] = useState(gameToEditObject.game_state);
+  const [gameImageString, setGameImageString] = useState(gameToEditObject.game_image_string);
 
   const handleCreate = (response) => {
     if (response.status === 200) {
@@ -100,8 +117,15 @@ const GameEditModal = () => {
   };
 
   const onSubmit = (data) => {
-    // setLoginLoading(true);
     authenticateCall(data);
+  };
+
+  const handleGameStateChange = (event) => {
+    setGameState(event.target.value);
+  };
+
+  const hangleGameImageStringChange = (event) => {
+    setGameImageString(event.target.value);
   };
 
   return (
@@ -176,44 +200,50 @@ const GameEditModal = () => {
                 </Stack>
 
                 <Stack className="py-[10px]">
-                  <TextField
-                    label="Game State"
-                    variant="outlined"
-                    placeholder="Game State"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <StackIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                    {...register('gameState', { required: true })}
-                  />
-                  {errors.gameState?.type === 'required' && (
-                    <p className="text-red">Game State is required</p>
-                  )}
+                  <FormControl>
+                    <InputLabel id="game-state-select-label">Game State</InputLabel>
+                    <Select
+                      labelId="game-state-select-label"
+                      onChange={handleGameStateChange}
+                      defaultValue={''}
+                      value={gameState}
+                      {...register('gameState', { required: true })}
+                    >
+                      {gameStateType.map((gameOption) => (
+                        <MenuItem value={gameOption} key={gameOption}>
+                          {gameOption}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    {errors.gameState?.type === 'required' && (
+                      <p className="text-red">Game State is required</p>
+                    )}
+                  </FormControl>
                 </Stack>
 
                 <Stack className="py-[10px]">
-                  <TextField
-                    label="Game Image String"
-                    variant="outlined"
-                    placeholder="Game Image String"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <FileEarmarkImage size={20} />
-                        </InputAdornment>
-                      ),
-                    }}
-                    {...register('gameImageString', { required: true })}
-                  />
-                  {errors.gameImageString?.type === 'required' && (
-                    <p className="text-red">Game Image String is required</p>
-                  )}
-                  {errors.gameImageString && errors.gameImageString.types && (
-                    <p>{errors.gameImageString.types.failedCreate}</p>
-                  )}
+                  <FormControl>
+                    <InputLabel id="game-image-string-select-label">Game Image String</InputLabel>
+                    <Select
+                      labelId="game-image-string-select-label"
+                      onChange={hangleGameImageStringChange}
+                      defaultValue={''}
+                      value={gameImageString}
+                      {...register('gameImageString', { required: true })}
+                    >
+                      {gameImageStringOptions.map((gameImageOption) => (
+                        <MenuItem value={gameImageOption} key={gameImageOption}>
+                          {gameImageOption}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    {errors.gameImageString?.type === 'required' && (
+                      <p className="text-red">Game Image String is required</p>
+                    )}
+                    {errors.gameImageString && errors.gameImageString.types && (
+                      <p>{errors.gameImageString.types.failedCreate}</p>
+                    )}
+                  </FormControl>
                 </Stack>
 
                 <Stack className="py-[10px] flex flex-row justify-between">
