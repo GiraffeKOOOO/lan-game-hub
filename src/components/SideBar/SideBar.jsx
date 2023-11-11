@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { PersonFill } from 'react-bootstrap-icons';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { PersonFillGear, HouseFill } from 'react-bootstrap-icons';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import axios from 'axios';
@@ -12,6 +12,7 @@ import UserContext from '../UserContext/UserContext';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import SidebarGameTile from './SidebarGameTile';
+import { USER_TYPE } from '../UserContext/UserTypes';
 // styles
 import '../../TimelineScrollbar.css';
 import '../../index.css';
@@ -44,18 +45,39 @@ const SideBar = () => {
 
   return (
     <div id="left-body-container" className="h-screen grid grid-rows-8 sticky top-0">
-      <div
-        id="user-profile"
-        className="w-full my-auto flex flex-row justify-center items-center mt-[10px]"
-      >
-        <PersonFill
-          size={30}
-          className="mx-auto h-[75px] w-[75px] p-[5px] rounded-full bg-slate-100 hover:bg-[#d6d6d6]"
-          // onClick={}  make this in to a selectable avatar
-        />
-      </div>
+      {userRole !== undefined && userName !== undefined ? (
+        <>
+          <div
+            id="user-profile"
+            className="w-full my-auto flex flex-row justify-center items-center mt-[10px]"
+          >
+            <PersonFill
+              size={30}
+              className="mx-auto h-[75px] w-[75px] p-[5px] rounded-full bg-slate-100 hover:bg-[#d6d6d6]"
+              // onClick={}  make this in to a selectable avatar
+            />
+          </div>
+          <div className="mt-[0px]">
+            <Typography className="mx-auto my-auto p-2  rounded-lg bg-slate-100 w-[250px] text-center">
+              {userName}
+            </Typography>
+          </div>
+        </>
+      ) : (
+        <>
+          <div
+            id="user-profile"
+            className="w-full my-auto flex flex-row justify-center items-center mt-[10px]"
+          >
+            <PersonFill
+              size={30}
+              className="mx-auto h-[75px] w-[75px] p-[5px] rounded-full bg-slate-100 "
+            />
+          </div>
+        </>
+      )}
 
-      {userRole === 'Admin' &&
+      {userRole === USER_TYPE.ADMIN &&
         (location.pathname === '/' ||
           location.pathname === '/addgame' ||
           location.pathname === '/editgame' ||
