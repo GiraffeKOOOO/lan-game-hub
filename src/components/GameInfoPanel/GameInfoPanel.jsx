@@ -17,7 +17,6 @@ import GameContext from '../GameContext/GameContext';
 import UserContext from '../UserContext/UserContext';
 // files
 import viewPlayerListState from '../PlayerList/PlayerListState';
-import { USER_TYPE } from '../UserContext/UserTypes';
 // styles
 import '../../App.css';
 
