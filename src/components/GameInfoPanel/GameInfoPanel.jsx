@@ -220,7 +220,7 @@ const GameInfoPanel = () => {
             </p>
           </div>
           <div className="grid grid-cols-2">
-            {userRole === USER_TYPE.USER && userName !== null && (
+            {userRole !== null && userName !== null && (
               <div>
                 <p className="mb-[4px]">Current playing status:</p>
                 {cachedGamePlayingStatus ? (
@@ -235,7 +235,7 @@ const GameInfoPanel = () => {
               </div>
             )}
 
-            {userRole === USER_TYPE.USER &&
+            {userRole !== null &&
               userName !== null &&
               (cachedGamePlayingStatus ? (
                 <Button
@@ -262,12 +262,10 @@ const GameInfoPanel = () => {
               ))}
           </div>
 
-          <div
-            className={`${userRole === USER_TYPE.USER && userName !== null ? 'border-t-2' : ''}`}
-          >
+          <div className={`${userRole !== null && userName !== null ? 'border-t-2' : ''}`}>
             <Button
               className={`w-60 h-10 mx-auto ${
-                userRole === USER_TYPE.USER && userName !== null ? 'mt-[10px] mb-[5px]' : 'my-[5px]'
+                userRole !== null && userName !== null ? 'mt-[10px] mb-[5px]' : 'my-[5px]'
               }`}
               variant="primary"
               onClick={() => handleMoreInfoClick()}
