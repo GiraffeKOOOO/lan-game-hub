@@ -12,6 +12,8 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
+import { debounce } from 'lodash';
+import { TailSpin } from 'svg-loaders-react';
 // context
 import GameContext from '../GameContext/GameContext';
 import UserContext from '../UserContext/UserContext';
@@ -136,12 +138,14 @@ const fetchGameCount = (selectedGame, setGameCount) => {
 const GameInfoPanel = () => {
   const pathToAssets = '/src/assets/images/';
 
-  const { selectedGame, handleMoreInfoClick, returnGameStatusColor } = useContext(GameContext);
+  const { selectedGame, handleMoreInfoClick, returnGameStatusColor, returnGameStateString } =
+    useContext(GameContext);
   const { userRole, userName, userId } = useContext(UserContext);
 
   const [gameCount, setGameCount] = useState(null);
   const [gamePlayingStatus, setGamePlayingStatus] = useState(false);
   const [viewPlayerList] = useRecoilState(viewPlayerListState);
+  const [loading, setLoading] = useState(false);
 
   const cachedGameCount = useMemo(() => {
     return gameCount;
@@ -153,6 +157,14 @@ const GameInfoPanel = () => {
 
   const handleUserJoining = () => {
     userJoinsGame(selectedGame, userId, userName, setGamePlayingStatus);
+    setLoading(false);
+  };
+
+  const debouncedUserJoining = debounce(handleUserJoining, 1000);
+
+  const animateUserJoing = () => {
+    setLoading(true);
+    debouncedUserJoining();
   };
 
   const handleUserLeaving = () => {
@@ -214,12 +226,11 @@ const GameInfoPanel = () => {
                 selectedGame.game_state,
               )}`}
             >
-              {/* {gameStateText(selectedGame.state)} should print out a nice game state than just whats coming back from the backend*/}
-              {selectedGame.game_state}
+              {returnGameStateString(selectedGame.game_state)}
             </p>
           </div>
           <div className="grid grid-cols-2">
-            {userRole !== null && userName !== null && (
+            {userRole != null && userName != null && (
               <div>
                 <p className="mb-[4px]">Current playing status:</p>
                 {cachedGamePlayingStatus ? (
@@ -234,8 +245,8 @@ const GameInfoPanel = () => {
               </div>
             )}
 
-            {userRole !== null &&
-              userName !== null &&
+            {userRole != null &&
+              userName != null &&
               (cachedGamePlayingStatus ? (
                 <Button
                   className="w-40 h-10 mt-[27px] mx-auto"
@@ -250,21 +261,25 @@ const GameInfoPanel = () => {
               ) : (
                 <Button
                   className="w-40 h-10 mt-[27px] mx-auto"
-                  variant="primary"
-                  onClick={() => handleUserJoining()}
+                  variant={loading ? 'secondary' : 'primary'}
+                  onClick={() => animateUserJoing()}
                 >
-                  <span className="flex">
-                    <p className="ml-10px mx-auto">Join game</p>
-                    <PlusCircleFill size={20} className="mt-[4px]" />
-                  </span>
+                  {loading ? (
+                    <TailSpin className="w-[30px] h-[30px] mx-auto" />
+                  ) : (
+                    <span className="flex">
+                      <p className="ml-10px mx-auto">Join game</p>
+                      <PlusCircleFill size={20} className="mt-[4px]" />
+                    </span>
+                  )}
                 </Button>
               ))}
           </div>
 
-          <div className={`${userRole !== null && userName !== null ? 'border-t-2' : ''}`}>
+          <div className={`${userRole != null && userName != null ? 'border-t-2' : ''}`}>
             <Button
               className={`w-60 h-10 mx-auto ${
-                userRole !== null && userName !== null ? 'mt-[10px] mb-[5px]' : 'my-[5px]'
+                userRole != null && userName != null ? 'mt-[10px] mb-[5px]' : 'my-[5px]'
               }`}
               variant="primary"
               onClick={() => handleMoreInfoClick()}

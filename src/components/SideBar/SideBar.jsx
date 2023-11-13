@@ -45,7 +45,7 @@ const SideBar = () => {
 
   return (
     <div id="left-body-container" className="h-screen grid grid-rows-8 sticky top-0">
-      {userRole !== undefined && userName !== undefined ? (
+      {userRole != undefined && userName != undefined ? (
         <>
           <div
             id="user-profile"
@@ -57,8 +57,8 @@ const SideBar = () => {
               // onClick={}  make this in to a selectable avatar
             />
           </div>
-          <div className="mt-[0px]">
-            <Typography className="mx-auto my-auto p-2  rounded-lg bg-slate-100 w-[250px] text-center">
+          <div className="mt-[0px] overflow-hidden">
+            <Typography className="mx-auto my-auto p-2  rounded-lg bg-slate-100 w-[250px] text-center truncate">
               {userName}
             </Typography>
           </div>

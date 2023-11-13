@@ -18,7 +18,7 @@ const Admin = () => {
   const { darkMode } = useContext(ThemeContext);
   const { userRole, userName } = useContext(UserContext);
 
-  if (userRole === USER_TYPE.ADMIN && userName !== null) {
+  if (userRole === USER_TYPE.ADMIN && userName != null) {
     return (
       <>
         <div className="grid grid-cols-7 min-h-screen">
