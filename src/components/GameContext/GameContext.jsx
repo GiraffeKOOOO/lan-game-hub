@@ -54,6 +54,19 @@ export function GameProvider({ children }) {
     }
   };
 
+  const returnGameStateString = (gameStatusString) => {
+    switch (gameStatusString) {
+      case 'FINISHED':
+        return 'Finished';
+      case 'INPROGRESS':
+        return 'In Progress';
+      case 'UPNEXT':
+        return 'Up Next';
+      case 'INQUEUE':
+        return 'In Queue';
+    }
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -66,6 +79,7 @@ export function GameProvider({ children }) {
         teamPlayerTableRef,
         handleMoreInfoClick,
         returnGameStatusColor,
+        returnGameStateString,
       }}
     >
       {children}

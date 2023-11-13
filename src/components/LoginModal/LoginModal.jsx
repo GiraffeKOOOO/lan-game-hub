@@ -2,16 +2,7 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
-import {
-  Box,
-  Button,
-  Checkbox,
-  InputAdornment,
-  Modal,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, InputAdornment, Modal, Stack, TextField, Typography } from '@mui/material';
 import { Ring } from '@uiball/loaders';
 import { PersonCircle, KeyFill } from 'react-bootstrap-icons';
 import axios from 'axios';
@@ -32,8 +23,8 @@ const style = {
 
 const LoginModal = () => {
   const [modalOpen, setModalOpen] = useRecoilState(loginModalState);
-  const [remainLoggedChecked, setRemainLoggedChecked] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
+  const [createLoading, setCreateLoading] = useState(false);
   const [registerModal, setRegisterModal] = useState(false);
   const handleClose = () => setModalOpen(false);
 
@@ -50,7 +41,6 @@ const LoginModal = () => {
       localStorage.setItem('userId', response.data.user_id);
       localStorage.setItem('userName', response.data.user_name);
       localStorage.setItem('userRole', response.data.user_role);
-      localStorage.setItem('remainLoggedIn', remainLoggedChecked);
       setLoginLoading(false);
       window.location.reload(false);
     }
@@ -64,6 +54,7 @@ const LoginModal = () => {
           failedAuth: 'Incorrect username or password',
         },
       });
+      setLoginLoading(false);
     }
     if ((error.response.status === 500) & (error.response.statusText === 'Internal Server Error')) {
       setError('password', {
@@ -71,8 +62,8 @@ const LoginModal = () => {
           failedAuth: 'Incorrect username or password',
         },
       });
+      setLoginLoading(false);
     }
-    setLoginLoading(false);
   };
 
   const authenticateCall = (formData) => {
@@ -89,6 +80,7 @@ const LoginModal = () => {
   };
 
   const handleCreateSuccess = (response) => {
+    setCreateLoading(false);
     if (response.status === 200) {
       window.location.reload(false);
     }
@@ -96,6 +88,7 @@ const LoginModal = () => {
 
   const handleCreateFail = (error) => {
     console.log(error);
+    setCreateLoading(false);
     if ((error.response.status === 400) & (error.response.statusText === 'Bad Request')) {
       setError('createPassword', {
         types: {
@@ -134,13 +127,12 @@ const LoginModal = () => {
     }
   };
 
-  const onSubmit = (data) => {
-    setLoginLoading(true);
-    authenticateCall(data);
-  };
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  const handleRemainLoggedCheck = () => {
-    setRemainLoggedChecked(!remainLoggedChecked);
+  const onSubmit = async (data) => {
+    setLoginLoading(true);
+    await sleep(1500);
+    authenticateCall(data);
   };
 
   const openRegisterForm = (open) => {
@@ -151,7 +143,9 @@ const LoginModal = () => {
     setRegisterModal(open);
   };
 
-  const onRegister = (data) => {
+  const onRegister = async (data) => {
+    setCreateLoading(true);
+    await sleep(2000);
     createUserCall(data);
   };
 
@@ -173,6 +167,9 @@ const LoginModal = () => {
                     label="Username"
                     variant="outlined"
                     placeholder="Username"
+                    inputProps={{
+                      maxLength: 50,
+                    }}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -186,12 +183,15 @@ const LoginModal = () => {
                     <p className="text-red">Username is required</p>
                   )}
                 </Stack>
-                <Stack>
+                <Stack className="mb-[10px]">
                   <TextField
                     label="Password"
                     variant="outlined"
                     placeholder="Password"
                     type="password"
+                    inputProps={{
+                      maxLength: 50,
+                    }}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -207,10 +207,6 @@ const LoginModal = () => {
                   {errors.password && errors.password.types && (
                     <p>{errors.password.types.failedAuth}</p>
                   )}
-                </Stack>
-                <Stack className="flex flex-row ml-[-30px]">
-                  <Checkbox checked={remainLoggedChecked} onChange={handleRemainLoggedCheck} />
-                  <p className="my-auto">Stay logged in</p>
                 </Stack>
                 <Stack className="flex flex-row mt-[-10px]">
                   <Button
@@ -255,6 +251,9 @@ const LoginModal = () => {
                     label="Username"
                     variant="outlined"
                     placeholder="Username"
+                    inputProps={{
+                      maxLength: 50,
+                    }}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -275,13 +274,15 @@ const LoginModal = () => {
                     variant="outlined"
                     placeholder="Password"
                     type="password"
+                    inputProps={{
+                      maxLength: 50,
+                    }}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
                           <KeyFill />
                         </InputAdornment>
                       ),
-                      maxLength: 50,
                     }}
                     {...register('createPassword', { required: true })}
                   />
@@ -296,7 +297,7 @@ const LoginModal = () => {
                   <Button
                     variant="contained"
                     className="mx-auto"
-                    disabled={loginLoading}
+                    disabled={createLoading}
                     onClick={() => openRegisterForm(false)}
                   >
                     Cancel
@@ -313,10 +314,10 @@ const LoginModal = () => {
                       color: 'white',
                       height: 45,
                     }}
-                    disabled={loginLoading}
+                    disabled={createLoading}
                     onClick={handleSubmit(onRegister)}
                   >
-                    {loginLoading ? (
+                    {createLoading ? (
                       <Ring size={40} lineWeight={5} speed={2} color="#82a1b3" />
                     ) : (
                       `Create Account`
