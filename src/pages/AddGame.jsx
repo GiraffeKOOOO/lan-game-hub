@@ -1,16 +1,19 @@
 // libraries
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { Button, InputAdornment, Stack, TextField, Typography } from '@mui/material';
 import {
-  Fonts,
-  Dice6,
-  Clock,
-  Stack as StackIcon,
-  FileEarmarkImage,
-  PlusCircle,
-} from 'react-bootstrap-icons';
+  Button,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { Fonts, Dice6, Clock, PlusCircle } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
 // context
 import ThemeContext from '../components/ThemeContext/ThemeContext';
@@ -25,10 +28,70 @@ import '../TimelineScrollbar.css';
 import '../index.css';
 import '../App.css';
 
+const gameStateType = ['INPROGRESS', 'UPNEXT', 'INQUEUE', 'FINISHED'];
+
+const gameImageStringOptions = [
+  'apex-banner.jpg',
+  'cs2-banner.jpg',
+  'lol-banner.jpg',
+  'rl-banner.jpg',
+  'tf2-banner.jpg',
+  'smash-bros-ultimate-banner.jpg',
+  'poker-banner.jpg',
+  'board-games-banner.jpg',
+  'pubg-banner.jpg',
+  'cod-warzone-banner.jpg',
+  'the-finals-banner.jpg',
+  'dota2-banner.jpg',
+  'dawn-of-war-banner.jpg',
+  'toybox-turbos-banner.jpg',
+  'splitgate-banner.jpg',
+  'overwatch-2-banner.jpg',
+  'valorant-banner.jpg',
+  'team-fight-tactics-banner.jpg',
+  'starcraft-2-banner.jpg',
+  'gta-5-banner.jpg',
+  'rainbow-six-siege-banner.jpg',
+  'halo-banner.jpg',
+  'fall-guys-banner.jpg',
+  'trackmania-banner.jpg',
+  'hell-let-loose-banner.jpg',
+  'street-fighter-banner.jpg',
+  'mortal-kombat-banner.jpg',
+  'nidhogg-2-banner.jpg',
+  'human-fall-flat-banner.jpg',
+  'chivalry-2-banner.jpg',
+  'mordhau-banner.jpg',
+  'valheim-banner.jpg',
+  'sea-of-thieves-banner.jpg',
+  'castle-crashers-banner.jpg',
+  'dead-by-daylight-banner.jpg',
+  'jackbox-banner.jpg',
+  'brawlhalla-banner.jpg',
+  'killing-floor-2-banner.jpg',
+  'among-us-banner.jpg',
+  'half-life-2-deathmatch-banner.jpg',
+  'f1-2022-banner.jpg',
+  'wreckfest-banner.jpg',
+  'ut2004-banner.jpg',
+  'civ-6-banner.jpg',
+  'civ-5-banner.jpg',
+  'blood-bowl-3-banner.jpg',
+  'slapshot-rebound-banner.jpg',
+  'left-4-dead-2-banner.jpg',
+  'age-of-empires-2-banner.jpg',
+  'golf-it-banner.jpg',
+  'golf-with-your-friends-banner.jpg',
+  'default-banner.jpg',
+];
+
 const AddGame = () => {
   const { darkMode } = useContext(ThemeContext);
   const { userRole, userName } = useContext(UserContext);
   const navigate = useNavigate();
+
+  const [gameState, setGameState] = useState();
+  const [gameImageString, setGameImageString] = useState();
 
   const {
     register,
@@ -86,8 +149,15 @@ const AddGame = () => {
   };
 
   const onSubmit = (data) => {
-    // setLoginLoading(true);
     authenticateCall(data);
+  };
+
+  const handleGameStateChange = (event) => {
+    setGameState(event.target.value);
+  };
+
+  const hangleGameImageStringChange = (event) => {
+    setGameImageString(event.target.value);
   };
 
   if (userRole === USER_TYPE.ADMIN && userName != null) {
@@ -182,44 +252,50 @@ const AddGame = () => {
                   </Stack>
 
                   <Stack className="py-[10px]">
-                    <TextField
-                      label="Game State"
-                      variant="outlined"
-                      placeholder="Game State"
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <StackIcon />
-                          </InputAdornment>
-                        ),
-                      }}
-                      {...register('gameState', { required: true })}
-                    />
-                    {errors.gameState?.type === 'required' && (
-                      <p className="text-red">Game State is required</p>
-                    )}
+                    <FormControl>
+                      <InputLabel id="game-state-select-label">Game State</InputLabel>
+                      <Select
+                        labelId="game-state-select-label"
+                        onChange={handleGameStateChange}
+                        defaultValue={''}
+                        value={gameState}
+                        {...register('gameState', { required: true })}
+                      >
+                        {gameStateType.map((gameOption) => (
+                          <MenuItem value={gameOption} key={gameOption}>
+                            {gameOption}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      {errors.gameState?.type === 'required' && (
+                        <p className="text-red">Game State is required</p>
+                      )}
+                    </FormControl>
                   </Stack>
 
                   <Stack className="py-[10px]">
-                    <TextField
-                      label="Game Image String"
-                      variant="outlined"
-                      placeholder="Game Image String"
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <FileEarmarkImage size={20} />
-                          </InputAdornment>
-                        ),
-                      }}
-                      {...register('gameImageString', { required: true })}
-                    />
-                    {errors.gameImageString?.type === 'required' && (
-                      <p className="text-red">Game Image String is required</p>
-                    )}
-                    {errors.gameImageString && errors.gameImageString.types && (
-                      <p>{errors.gameImageString.types.failedCreate}</p>
-                    )}
+                    <FormControl>
+                      <InputLabel id="game-image-string-select-label">Game Image String</InputLabel>
+                      <Select
+                        labelId="game-image-string-select-label"
+                        onChange={hangleGameImageStringChange}
+                        defaultValue={''}
+                        value={gameImageString}
+                        {...register('gameImageString', { required: true })}
+                      >
+                        {gameImageStringOptions.map((gameImageOption) => (
+                          <MenuItem value={gameImageOption} key={gameImageOption}>
+                            {gameImageOption}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      {errors.gameImageString?.type === 'required' && (
+                        <p className="text-red">Game Image String is required</p>
+                      )}
+                      {errors.gameImageString && errors.gameImageString.types && (
+                        <p>{errors.gameImageString.types.failedCreate}</p>
+                      )}
+                    </FormControl>
                   </Stack>
 
                   <Stack className="py-[10px] flex flex-row justify-between">
