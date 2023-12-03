@@ -1,7 +1,10 @@
 // libraries
+import { useContext } from 'react';
 import { Button } from '@mui/material';
 import { Trash, PencilSquare } from 'react-bootstrap-icons';
 import { useRecoilState } from 'recoil';
+// context
+import GameContext from '../GameContext/GameContext';
 // files
 import deleteGameModalState from '../GameDeleteModal/GameDeleteModalState';
 import { gameToDelete } from '../GameDeleteModal/GameDeleteModalState';
@@ -9,6 +12,7 @@ import editGameModalState from '../GameEditModal/GameEditModalState';
 import { gameToEdit } from '../GameEditModal/GameEditModalState';
 
 const GameListItem = ({ game, action }) => {
+  const { returnGameStateString } = useContext(GameContext);
   const pathToAssets = '/src/assets/images/';
   const [, setGameDeleteModalOpen] = useRecoilState(deleteGameModalState);
   const [, setGameToDelete] = useRecoilState(gameToDelete);
@@ -21,7 +25,7 @@ const GameListItem = ({ game, action }) => {
       <p className="my-auto text-[15px]">{game.game_name}</p>
       <p className="my-auto text-[15px]">{game.game_mode}</p>
       <p className="my-auto text-[15px]">{game.game_start_time}</p>
-      <p className="my-auto text-[15px]">{game.game_state}</p>
+      <p className="my-auto text-[15px]">{returnGameStateString(game.game_state)}</p>
       <img
         className="my-auto text-[15px] w-[120px] h-[50px]"
         src={`${pathToAssets}${game.game_image_string}`}
