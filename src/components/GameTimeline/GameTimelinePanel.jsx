@@ -1,5 +1,6 @@
 // libraries
 import { useState, useEffect, useMemo, useContext } from 'react';
+import { useRecoilState } from 'recoil';
 import Card from 'react-bootstrap/Card';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import axios from 'axios';
@@ -7,6 +8,7 @@ import axios from 'axios';
 import GameContext from '../GameContext/GameContext';
 // files
 import StartEndBlock from './StartEndBlock';
+import viewPlayerListState from '../PlayerList/PlayerListState';
 // styles
 import '../../App.css';
 import '../../TimelineScrollbar.css';
@@ -24,11 +26,13 @@ const fetchGameInfo = (setGameList) => {
 
 const GameTimelinePanel = () => {
   const { setSelectedGame, setMoreInfoHidden, setPlayerTeamButtonHidden } = useContext(GameContext);
+  const [, setViewPlayerList] = useRecoilState(viewPlayerListState);
 
   const handleCardSelection = (game) => {
     setSelectedGame(game);
     setPlayerTeamButtonHidden(false);
     setMoreInfoHidden(true);
+    setViewPlayerList(false);
   };
 
   const [gameList, setGameList] = useState({});

@@ -14,7 +14,6 @@ import viewPlayerListState from './PlayerListState';
 import '../../App.css';
 
 const formatPlayerList = (data, setPlayerList) => {
-  console.log('data', data);
   const formattedArray = data.map((player) => player.user_name);
   setPlayerList(formattedArray);
 };
@@ -45,7 +44,13 @@ const PlayerList = () => {
     fetchPlayerList(selectedGame, setPlayerList);
   }, [selectedGame, viewPlayerList]);
 
-  if (viewPlayerList) {
+  if (cachedPlayerList === null) return;
+
+  const playerHalfwayPoint = Math.ceil(cachedPlayerList.length / 2);
+  const playerColumn1 = cachedPlayerList.slice().splice(0, playerHalfwayPoint);
+  const playerColumn2 = cachedPlayerList.slice().splice(playerHalfwayPoint);
+
+  if (viewPlayerList && cachedPlayerList !== null) {
     return (
       <>
         <Card className="mx-auto w-[1000px] mb-[30px]" ref={teamPlayerTableRef}>
@@ -69,15 +74,27 @@ const PlayerList = () => {
                 </Button>
               </div>
             </div>
-            <div id="game-table-left" className="mx-auto w-[300px] text-center gap-4">
-              {cachedPlayerList.map((player, iterator) => {
-                return (
-                  <p key={iterator} className="border-2 border-blue-200 rounded-[7px]">
-                    {player}
-                  </p>
-                );
-              })}
+            <div id="game-table-players" className="grid grid-cols-2 min-h-[60px]">
+              <div id="players-left" className="w-[300px] mx-auto text-center gap-4">
+                {playerColumn1.map((player, iterator) => {
+                  return (
+                    <p key={iterator} className="border-2 border-blue-200 rounded-[7px]">
+                      {player}
+                    </p>
+                  );
+                })}
+              </div>
+              <div id="players-right" className="w-[300px] mx-auto text-center gap-4">
+                {playerColumn2.map((player, iterator) => {
+                  return (
+                    <p key={iterator} className="border-2 border-blue-200 rounded-[7px]">
+                      {player}
+                    </p>
+                  );
+                })}
+              </div>
             </div>
+            <div id="game-table-right"></div>
           </Card.Body>
         </Card>
       </>
