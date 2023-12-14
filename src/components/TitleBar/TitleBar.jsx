@@ -8,7 +8,7 @@ import ThemeContext from '../ThemeContext/ThemeContext';
 import { FONT_COLOUR } from '../Theme/Colours';
 
 function TitleBar() {
-  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+  const { darkMode, enableDarkMode, disableDarkMode } = useContext(ThemeContext);
   const [dateState, setDateState] = useState(new Date());
 
   useEffect(() => {
@@ -18,7 +18,11 @@ function TitleBar() {
   }, []);
 
   const handleDarkModeSwitch = () => {
-    toggleDarkMode();
+    if (darkMode) {
+      disableDarkMode();
+    } else {
+      enableDarkMode();
+    }
   };
 
   return (
