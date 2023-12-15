@@ -13,6 +13,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { styled } from '@mui/system';
 import { Fonts, Dice6, Clock, PlusCircle } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
 // context
@@ -23,7 +24,7 @@ import TitleBar from '../components/TitleBar/TitleBar';
 import SideBar from '../components/SideBar/SideBar';
 import { USER_TYPE } from '../components/UserContext/UserTypes';
 // styles
-import { BACKGROUND } from '../components/Theme/Colours';
+import { BACKGROUND, FONT_COLOUR } from '../components/Theme/Colours';
 import '../TimelineScrollbar.css';
 import '../index.css';
 import '../App.css';
@@ -156,7 +157,7 @@ const AddGame = () => {
     setGameState(event.target.value);
   };
 
-  const hangleGameImageStringChange = (event) => {
+  const handleGameImageStringChange = (event) => {
     setGameImageString(event.target.value);
   };
 
@@ -190,7 +191,10 @@ const AddGame = () => {
               <div className="col-span-1" />
               <div id="game-form" className="col-span-4 w-full mt-[100px]">
                 <form>
-                  <Typography className="py-[10px] text-center">
+                  <Typography
+                    className="py-[10px] text-center"
+                    style={darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }}
+                  >
                     Add a game to the schedule
                   </Typography>
 
@@ -202,10 +206,31 @@ const AddGame = () => {
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
-                            <Fonts size={30} />
+                            <Fonts
+                              size={30}
+                              color={darkMode ? FONT_COLOUR.DARK : FONT_COLOUR.LIGHT}
+                            />
                           </InputAdornment>
                         ),
                       }}
+                      sx={
+                        darkMode
+                          ? {
+                              '& .MuiFormLabel-root': {
+                                color: FONT_COLOUR.DARK,
+                              },
+                              '& .MuiOutlinedInput-notchedOutline': {
+                                borderColor: FONT_COLOUR.DARK,
+                              },
+                              '& .MuiOutlinedInput-root': {
+                                color: FONT_COLOUR.DARK,
+                                '&:hover fieldset': {
+                                  borderColor: FONT_COLOUR.DARK,
+                                },
+                              },
+                            }
+                          : {}
+                      }
                       {...register('gameName', { required: true })}
                     />
                     {errors.gameName?.type === 'required' && (
@@ -221,10 +246,31 @@ const AddGame = () => {
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
-                            <Dice6 size={20} />
+                            <Dice6
+                              size={20}
+                              color={darkMode ? FONT_COLOUR.DARK : FONT_COLOUR.LIGHT}
+                            />
                           </InputAdornment>
                         ),
                       }}
+                      sx={
+                        darkMode
+                          ? {
+                              '& .MuiFormLabel-root': {
+                                color: FONT_COLOUR.DARK,
+                              },
+                              '& .MuiOutlinedInput-notchedOutline': {
+                                borderColor: FONT_COLOUR.DARK,
+                              },
+                              '& .MuiOutlinedInput-root': {
+                                color: FONT_COLOUR.DARK,
+                                '&:hover fieldset': {
+                                  borderColor: FONT_COLOUR.DARK,
+                                },
+                              },
+                            }
+                          : {}
+                      }
                       {...register('gameMode', { required: true })}
                     />
                     {errors.gameMode?.type === 'required' && (
@@ -240,10 +286,31 @@ const AddGame = () => {
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
-                            <Clock size={20} />
+                            <Clock
+                              size={20}
+                              color={darkMode ? FONT_COLOUR.DARK : FONT_COLOUR.LIGHT}
+                            />
                           </InputAdornment>
                         ),
                       }}
+                      sx={
+                        darkMode
+                          ? {
+                              '& .MuiFormLabel-root': {
+                                color: FONT_COLOUR.DARK,
+                              },
+                              '& .MuiOutlinedInput-notchedOutline': {
+                                borderColor: FONT_COLOUR.DARK,
+                              },
+                              '& .MuiOutlinedInput-root': {
+                                color: FONT_COLOUR.DARK,
+                                '&:hover fieldset': {
+                                  borderColor: FONT_COLOUR.DARK,
+                                },
+                              },
+                            }
+                          : {}
+                      }
                       {...register('gameStartTime', { required: true })}
                     />
                     {errors.gameStartTime?.type === 'required' && (
@@ -253,12 +320,34 @@ const AddGame = () => {
 
                   <Stack className="py-[10px]">
                     <FormControl>
-                      <InputLabel id="game-state-select-label">Game State</InputLabel>
+                      <InputLabel
+                        id="game-state-select-label"
+                        style={
+                          darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }
+                        }
+                      >
+                        Game State
+                      </InputLabel>
                       <Select
                         labelId="game-state-select-label"
                         onChange={handleGameStateChange}
                         defaultValue={''}
                         value={gameState}
+                        style={
+                          darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }
+                        }
+                        sx={
+                          darkMode
+                            ? {
+                                '.MuiOutlinedInput-notchedOutline': {
+                                  borderColor: FONT_COLOUR.DARK,
+                                },
+                                '&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                                  borderColor: FONT_COLOUR.DARK,
+                                },
+                              }
+                            : {}
+                        }
                         {...register('gameState', { required: true })}
                       >
                         {gameStateType.map((gameOption) => (
@@ -275,12 +364,34 @@ const AddGame = () => {
 
                   <Stack className="py-[10px]">
                     <FormControl>
-                      <InputLabel id="game-image-string-select-label">Game Image String</InputLabel>
+                      <InputLabel
+                        id="game-image-string-select-label"
+                        style={
+                          darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }
+                        }
+                      >
+                        Game Image String
+                      </InputLabel>
                       <Select
                         labelId="game-image-string-select-label"
-                        onChange={hangleGameImageStringChange}
+                        onChange={handleGameImageStringChange}
                         defaultValue={''}
                         value={gameImageString}
+                        style={
+                          darkMode ? { color: FONT_COLOUR.DARK } : { color: FONT_COLOUR.LIGHT }
+                        }
+                        sx={
+                          darkMode
+                            ? {
+                                '.MuiOutlinedInput-notchedOutline': {
+                                  borderColor: FONT_COLOUR.DARK,
+                                },
+                                '&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                                  borderColor: FONT_COLOUR.DARK,
+                                },
+                              }
+                            : {}
+                        }
                         {...register('gameImageString', { required: true })}
                       >
                         {gameImageStringOptions.map((gameImageOption) => (
