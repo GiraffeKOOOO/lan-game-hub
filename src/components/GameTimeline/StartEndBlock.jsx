@@ -1,8 +1,8 @@
 // libraries
 import Card from 'react-bootstrap/Card';
 // files
-import startFlag from '../../assets/images/start-flag.jpg';
-import finishFlag from '../../assets/images/finish-flag.jpg';
+import startFlag from '../../assets/start-flag.jpg';
+import finishFlag from '../../assets/finish-flag.jpg';
 
 const StartEndBlock = ({ start }) => {
   return (

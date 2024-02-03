@@ -2,7 +2,7 @@
 import Card from 'react-bootstrap/Card';
 
 const SidebarGameTime = ({ game }) => {
-  const pathToAssets = '/src/assets/images/';
+  const pathToAssets = '/images/';
 
   return (
     <>

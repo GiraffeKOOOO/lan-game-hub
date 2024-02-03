@@ -20,7 +20,7 @@ import '../App.css';
 const fetchGameInfo = (setGameList) => {
   try {
     axios
-      .get('http://localhost:5134/api/Game')
+      .get(`${import.meta.env.VITE_API_ADDRESS}Game`)
       .then((response) => setGameList(response.data))
       .catch((error) => console.log(error.message));
   } catch (error) {

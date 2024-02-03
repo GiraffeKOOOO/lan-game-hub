@@ -27,7 +27,7 @@ const handleSuccessfulDelete = (response) => {
 const handleDeleteGame = (gameId) => {
   try {
     axios
-      .delete(`http://localhost:5134/api/Game/${gameId}`)
+      .delete(`${import.meta.env.VITE_API_ADDRESS}Game/${gameId}`)
       .then((response) => handleSuccessfulDelete(response))
       .catch((error) => console.log(error));
   } catch (error) {

@@ -8,7 +8,7 @@ import { PersonCircle, KeyFill } from 'react-bootstrap-icons';
 import axios from 'axios';
 // files
 import loginModalState from './LoginModalState';
-import westlanLogo from '../../assets/images/westlan-logo.jpg';
+import westlanLogo from '../../assets/westlan-logo.jpg';
 
 const style = {
   position: 'absolute',
@@ -70,7 +70,9 @@ const LoginModal = () => {
     try {
       axios
         .post(
-          `http://localhost:5134/api/Login?queriedUsername=${formData.username}&queriedPassword=${formData.password}`,
+          `${import.meta.env.VITE_API_ADDRESS}Login?queriedUsername=${
+            formData.username
+          }&queriedPassword=${formData.password}`,
         )
         .then((response) => handleLogin(response))
         .catch((error) => handleFailedLogin(error));
@@ -110,7 +112,7 @@ const LoginModal = () => {
     try {
       axios({
         method: 'POST',
-        url: 'http://localhost:5134/api/User',
+        url: `${import.meta.env.VITE_API_ADDRESS}User`,
         headers: {
           'content-type': 'application/json',
         },

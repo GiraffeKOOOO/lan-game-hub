@@ -16,7 +16,7 @@ import '../../TimelineScrollbar.css';
 const fetchGameInfo = (setGameList) => {
   try {
     axios
-      .get('http://localhost:5134/api/Game')
+      .get(`${import.meta.env.VITE_API_ADDRESS}Game`)
       .then((response) => setGameList(response.data))
       .catch((error) => console.log(error.message));
   } catch (error) {
@@ -28,6 +28,8 @@ const GameTimelinePanel = () => {
   const { setSelectedGame, setMoreInfoHidden, setPlayerTeamButtonHidden } = useContext(GameContext);
   const [, setViewPlayerList] = useRecoilState(viewPlayerListState);
 
+  console.log(import.meta.env.VITE_API_ADDRESS);
+
   const handleCardSelection = (game) => {
     setSelectedGame(game);
     setPlayerTeamButtonHidden(false);
@@ -36,7 +38,7 @@ const GameTimelinePanel = () => {
   };
 
   const [gameList, setGameList] = useState({});
-  const pathToAssets = '/src/assets/images/';
+  const pathToAssets = '/images/';
 
   useEffect(() => {
     fetchGameInfo(setGameList);

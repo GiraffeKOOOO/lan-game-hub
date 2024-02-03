@@ -40,7 +40,7 @@ const userLeavesGame = (response, selectedGame, userId, userName, setGamePlaying
   try {
     axios({
       method: 'DELETE',
-      url: 'http://localhost:5134/api/GetGamePlayerStatus',
+      url: `${import.meta.env.VITE_API_ADDRESS}GetGamePlayerStatus`,
       headers: {
         'content-type': 'application/json',
       },
@@ -64,7 +64,9 @@ const fetchGameAction = (selectedGame, userId, userName, setGamePlayingStatus) =
   try {
     axios
       .get(
-        `http://localhost:5134/api/GetGamePlayerAction?gameId=${selectedGame.game_id}&userId=${userId}`,
+        `${import.meta.env.VITE_API_ADDRESS}GetGamePlayerAction?gameId=${
+          selectedGame.game_id
+        }&userId=${userId}`,
       )
       .then((response) =>
         userLeavesGame(response, selectedGame, userId, userName, setGamePlayingStatus),
@@ -92,7 +94,7 @@ const userJoinsGame = (selectedGame, userId, userName, setGamePlayingStatus) => 
   try {
     axios({
       method: 'POST',
-      url: 'http://localhost:5134/api/GetGamePlayerStatus',
+      url: `${import.meta.env.VITE_API_ADDRESS}GetGamePlayerStatus`,
       headers: {
         'content-type': 'application/json',
       },
@@ -114,7 +116,9 @@ const fetchGameStatus = (selectedGame, userId, setGamePlayingStatus) => {
   try {
     axios
       .get(
-        `http://localhost:5134/api/GetGamePlayerStatus?gameId=${selectedGame.game_id}&userId=${userId}`,
+        `${import.meta.env.VITE_API_ADDRESS}GetGamePlayerStatus?gameId=${
+          selectedGame.game_id
+        }&userId=${userId}`,
       )
       .then((response) => setGamePlayingStatus(response.data))
       .catch(() => setGamePlayingStatus(null));
@@ -127,7 +131,7 @@ const fetchGameCount = (selectedGame, setGameCount) => {
   if (selectedGame == null) return;
   try {
     axios
-      .get(`http://localhost:5134/api/GetGamePlayerCount/${selectedGame.game_id}`)
+      .get(`${import.meta.env.VITE_API_ADDRESS}GetGamePlayerCount/${selectedGame.game_id}`)
       .then((response) => setGameCount(response.data))
       .catch(() => setGameCount(null));
   } catch (error) {
@@ -136,7 +140,7 @@ const fetchGameCount = (selectedGame, setGameCount) => {
 };
 
 const GameInfoPanel = () => {
-  const pathToAssets = '/src/assets/images/';
+  const pathToAssets = '/images/';
 
   const { selectedGame, handleMoreInfoClick, returnGameStatusColor, returnGameStateString } =
     useContext(GameContext);

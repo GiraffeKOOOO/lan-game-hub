@@ -144,7 +144,7 @@ const GameEditModal = () => {
     try {
       axios({
         method: 'PUT',
-        url: 'http://localhost:5134/api/Game',
+        url: `${import.meta.env.VITE_API_ADDRESS}Game`,
         headers: {
           'content-type': 'application/json',
         },

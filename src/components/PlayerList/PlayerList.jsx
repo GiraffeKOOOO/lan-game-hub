@@ -22,7 +22,7 @@ const fetchPlayerList = (selectedGame, setPlayerList) => {
   if (selectedGame == null) return;
   try {
     axios
-      .get(`http://localhost:5134/api/GamePlayer/${selectedGame.game_id}`)
+      .get(`${import.meta.env.VITE_API_ADDRESS}GamePlayer/${selectedGame.game_id}`)
       .then((response) => formatPlayerList(response.data, setPlayerList))
       .catch(() => setPlayerList(null));
   } catch (error) {

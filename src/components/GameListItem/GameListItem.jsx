@@ -13,7 +13,7 @@ import { gameToEdit } from '../GameEditModal/GameEditModalState';
 
 const GameListItem = ({ game, action }) => {
   const { returnGameStateString } = useContext(GameContext);
-  const pathToAssets = '/src/assets/images/';
+  const pathToAssets = '/images/';
   const [, setGameDeleteModalOpen] = useRecoilState(deleteGameModalState);
   const [, setGameToDelete] = useRecoilState(gameToDelete);
   const [, setGameEditModalOpen] = useRecoilState(editGameModalState);
